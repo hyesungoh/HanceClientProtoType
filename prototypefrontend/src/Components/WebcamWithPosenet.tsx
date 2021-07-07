@@ -15,6 +15,7 @@
 //   console.log(pose);
 
 const WebcamWithPosenet = () => {
+
     return <div>this is webcam</div>;
 };
 
