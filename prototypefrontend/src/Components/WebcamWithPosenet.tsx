@@ -15,7 +15,7 @@
 //   console.log(pose);
 
 const WebcamWithPosenet = () => {
-    return <div></div>;
+    return <div>this is webcam</div>;
 };
 
 export default WebcamWithPosenet;
