@@ -5,13 +5,37 @@ import * as posenet from "@tensorflow-models/posenet";
 import Webcam from "react-webcam";
 import { useEffect } from "react";
 
+interface drawProps {
+    pose: posenet.Pose;
+    video: HTMLVideoElement;
+    videoWidth: number;
+    videoHeight: number;
+}
+
 const WebcamWithPosenet = () => {
     const webcamRef = useRef<Webcam>(null);
     const canvasRef = useRef(null);
-    
+
+    const DETECT_INTERVAL_MS: number = 2000;
+
     useEffect(() => {
         runPosenet();
     }, []);
+
+    // const drawResult = ({
+    //     pose,
+    //     video,
+    //     videoWidth,
+    //     videoHeight,
+    // }: drawProps) => {
+    //     if (!canvasRef.current) return;
+
+    //     const ctx = canvasRef.current.get;
+    //     canvas.current.width = videoWidth;
+    //     canvas.current.height = videoHeight;
+    //     drawKeypoints(pose["keypoints"], 0.6, ctx);
+    //     drawSkeleton(pose["keypoints"], 0.7, ctx);
+    // };
 
     const detectWebcamFeed = async (posenetModel: posenet.PoseNet) => {
         if (webcamRef.current && webcamRef.current.video?.readyState === 4) {
@@ -36,7 +60,7 @@ const WebcamWithPosenet = () => {
 
         setInterval(() => {
             detectWebcamFeed(posenetModel);
-        }, 5000);
+        }, DETECT_INTERVAL_MS);
     };
 
     return (
