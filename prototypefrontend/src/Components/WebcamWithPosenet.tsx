@@ -4,6 +4,7 @@ import * as tf from "@tensorflow/tfjs";
 import * as posenet from "@tensorflow-models/posenet";
 import Webcam from "react-webcam";
 import { useEffect } from "react";
+import useCoaching from "Hooks/useCoaching";
 
 interface drawProps {
     pose: posenet.Pose;
@@ -17,6 +18,8 @@ const WebcamWithPosenet = () => {
     const canvasRef = useRef(null);
 
     const DETECT_INTERVAL_MS: number = 2000;
+
+    const { getFeedback } = useCoaching();
 
     useEffect(() => {
         runPosenet();
@@ -47,7 +50,8 @@ const WebcamWithPosenet = () => {
             webcamRef.current.video.height = videoHeight;
 
             const pose = await posenetModel.estimateSinglePose(video);
-            console.log(pose.keypoints);
+            const score = await getFeedback({ pose });
+            console.log(score);
         }
     };
 

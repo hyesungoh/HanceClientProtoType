@@ -12,7 +12,7 @@ interface IResGetFeedBack {
 const useCoaching = () => {
     const getFeedback = async ({ pose }: IGetFeedBack) => {
         // some axios action
-        return {};
+        return { score: 100 };
     };
 
     return { getFeedback };
