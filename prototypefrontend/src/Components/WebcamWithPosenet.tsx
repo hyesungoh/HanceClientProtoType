@@ -16,7 +16,7 @@ const WebcamWithPosenet = () => {
     const webcamRef = useRef<Webcam>(null);
     const canvasRef = useRef(null);
 
-    const DETECT_INTERVAL_MS: number = 2000;
+    const DETECT_INTERVAL_MS: number = 100;
 
     const { getFeedback } = useCoaching();
 
@@ -33,10 +33,17 @@ const WebcamWithPosenet = () => {
         if (!canvasRef.current) return;
 
         const ctx = canvasRef.current.getContext("2d");
+        if (!ctx) return;
+
         canvasRef.current.width = videoWidth;
         canvasRef.current.height = videoHeight;
-        drawKeypoints(pose["keypoints"], 0.6, ctx);
-        drawSkeleton(pose["keypoints"], 0.7, ctx);
+
+        drawKeypoints({
+            keypoints: pose["keypoints"],
+            minConfidence: 0.4,
+            ctx,
+        });
+        drawSkeleton({ keypoints: pose["keypoints"], minConfidence: 0.4, ctx });
     };
 
     const detectWebcamFeed = async (posenetModel: posenet.PoseNet) => {
