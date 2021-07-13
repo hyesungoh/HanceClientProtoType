@@ -13,6 +13,7 @@ interface IDrawResult {
 }
 
 const WebcamWithPosenet = () => {
+    const [isLoading, setIsLoading] = useState<boolean>(true);
     const [detectTime, setDetectTime] = useState<number>(1000);
     const [posenetArchitecture, setPosenetArchitecture] = useState<
         "ResNet50" | "MobileNetV1"
@@ -22,13 +23,7 @@ const WebcamWithPosenet = () => {
     const webcamRef = useRef<Webcam>(null);
     const canvasRef = useRef(null);
 
-    const DETECT_INTERVAL_MS: number = 100;
-
     const { getFeedback } = useCoaching();
-
-    useEffect(() => {
-        runPosenet();
-    }, []);
 
     const drawResult = ({
         pose,
@@ -70,19 +65,48 @@ const WebcamWithPosenet = () => {
     };
 
     const runPosenet = async () => {
+        setIsLoading(true);
         const posenetModel = await posenet.load({
             inputResolution: { width: 640, height: 480 },
-            architecture: "MobileNetV1",
-            outputStride: 16,
+            architecture: posenetArchitecture,
+            outputStride: outputStride,
         });
+        setIsLoading(false);
+        
+        console.log(posenetArchitecture);
+        console.log("loading end");
 
         setInterval(() => {
             detectWebcamFeed(posenetModel);
-        }, DETECT_INTERVAL_MS);
+        }, detectTime);
     };
+
+    useEffect(() => {
+        runPosenet();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [posenetArchitecture]);
+
+    if (isLoading) return <div>LOADING ... </div>;
 
     return (
         <header className="App-header">
+            <select>
+                <option
+                    onClick={() => {
+                        setPosenetArchitecture("MobileNetV1");
+                    }}
+                >
+                    MobileNetV1
+                </option>
+                <option
+                    onClick={() => {
+                        setPosenetArchitecture("ResNet50");
+                    }}
+                >
+                    ResNet50
+                </option>
+            </select>
+
             <Webcam
                 ref={webcamRef}
                 style={{
