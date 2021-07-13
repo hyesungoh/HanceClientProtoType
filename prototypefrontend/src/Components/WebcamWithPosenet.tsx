@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react";
+import { useRef, useState, useEffect } from "react";
 import Webcam from "react-webcam";
 import * as posenet from "@tensorflow-models/posenet";
 
@@ -13,6 +13,12 @@ interface IDrawResult {
 }
 
 const WebcamWithPosenet = () => {
+    const [detectTime, setDetectTime] = useState<number>(1000);
+    const [posenetArchitecture, setPosenetArchitecture] = useState<
+        "ResNet50" | "MobileNetV1"
+    >("MobileNetV1");
+    const [outputStride, setOutputStride] = useState<32 | 16 | 8>(16);
+
     const webcamRef = useRef<Webcam>(null);
     const canvasRef = useRef(null);
 
