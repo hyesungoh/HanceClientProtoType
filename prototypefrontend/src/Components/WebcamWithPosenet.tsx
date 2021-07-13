@@ -1,16 +1,15 @@
-import { useRef } from "react";
-
-import * as tf from "@tensorflow/tfjs";
-import * as posenet from "@tensorflow-models/posenet";
+import { useRef, useEffect } from "react";
 import Webcam from "react-webcam";
-import { useEffect } from "react";
-import useCoaching from "Hooks/useCoaching";
+import * as posenet from "@tensorflow-models/posenet";
 
-interface drawProps {
+import useCoaching from "Hooks/useCoaching";
+import { drawKeypoints, drawSkeleton } from "Utils/draw";
+
+interface IDrawResult {
     pose: posenet.Pose;
-    video: HTMLVideoElement;
     videoWidth: number;
     videoHeight: number;
+    canvasRef: React.RefObject<HTMLCanvasElement | null>;
 }
 
 const WebcamWithPosenet = () => {
@@ -25,20 +24,20 @@ const WebcamWithPosenet = () => {
         runPosenet();
     }, []);
 
-    // const drawResult = ({
-    //     pose,
-    //     video,
-    //     videoWidth,
-    //     videoHeight,
-    // }: drawProps) => {
-    //     if (!canvasRef.current) return;
+    const drawResult = ({
+        pose,
+        videoWidth,
+        videoHeight,
+        canvasRef,
+    }: IDrawResult) => {
+        if (!canvasRef.current) return;
 
-    //     const ctx = canvasRef.current.get;
-    //     canvas.current.width = videoWidth;
-    //     canvas.current.height = videoHeight;
-    //     drawKeypoints(pose["keypoints"], 0.6, ctx);
-    //     drawSkeleton(pose["keypoints"], 0.7, ctx);
-    // };
+        const ctx = canvasRef.current.getContext("2d");
+        canvasRef.current.width = videoWidth;
+        canvasRef.current.height = videoHeight;
+        drawKeypoints(pose["keypoints"], 0.6, ctx);
+        drawSkeleton(pose["keypoints"], 0.7, ctx);
+    };
 
     const detectWebcamFeed = async (posenetModel: posenet.PoseNet) => {
         if (webcamRef.current && webcamRef.current.video?.readyState === 4) {
@@ -51,7 +50,9 @@ const WebcamWithPosenet = () => {
 
             const pose = await posenetModel.estimateSinglePose(video);
             const score = await getFeedback({ pose });
-            console.log(score);
+            console.log(`예상 점수 : ${score}`);
+
+            drawResult({ pose, videoWidth, videoHeight, canvasRef });
         }
     };
 
