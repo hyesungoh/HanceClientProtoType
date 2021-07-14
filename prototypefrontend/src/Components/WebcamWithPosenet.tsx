@@ -1,5 +1,7 @@
 import { useRef, useState, useEffect } from "react";
 import Webcam from "react-webcam";
+
+import * as tf from "@tensorflow/tfjs";
 import * as posenet from "@tensorflow-models/posenet";
 
 import useCoaching from "Hooks/useCoaching";
@@ -14,11 +16,16 @@ interface IDrawResult {
 
 const WebcamWithPosenet = () => {
     const [isLoading, setIsLoading] = useState<boolean>(true);
-    const [detectTime, setDetectTime] = useState<number>(1000);
+    const [detectTime, setDetectTime] = useState<number>(200);
     const [posenetArchitecture, setPosenetArchitecture] = useState<
         "ResNet50" | "MobileNetV1"
-    >("MobileNetV1");
+    >("ResNet50");
     const [outputStride, setOutputStride] = useState<32 | 16 | 8>(16);
+
+    const [resolution, setResolution] = useState<{
+        width: number;
+        height: number;
+    }>({ width: 240, height: 240 });
 
     const webcamRef = useRef<Webcam>(null);
     const canvasRef = useRef(null);
@@ -67,14 +74,14 @@ const WebcamWithPosenet = () => {
     const runPosenet = async () => {
         setIsLoading(true);
         const posenetModel = await posenet.load({
-            inputResolution: { width: 640, height: 480 },
+            inputResolution: {
+                width: resolution.width,
+                height: resolution.height,
+            },
             architecture: posenetArchitecture,
             outputStride: outputStride,
         });
         setIsLoading(false);
-        
-        console.log(posenetArchitecture);
-        console.log("loading end");
 
         setInterval(() => {
             detectWebcamFeed(posenetModel);
@@ -83,6 +90,7 @@ const WebcamWithPosenet = () => {
 
     useEffect(() => {
         runPosenet();
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [posenetArchitecture]);
 
@@ -116,8 +124,8 @@ const WebcamWithPosenet = () => {
                     left: 0,
                     right: 0,
                     textAlign: "center",
-                    width: 640,
-                    height: 480,
+                    width: resolution.width,
+                    height: resolution.height,
                 }}
             />
 
@@ -130,8 +138,8 @@ const WebcamWithPosenet = () => {
                     left: 0,
                     right: 0,
                     textAlign: "center",
-                    width: 640,
-                    height: 480,
+                    width: resolution.width,
+                    height: resolution.height,
                 }}
             />
         </header>
