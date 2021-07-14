@@ -7,6 +7,7 @@ import * as posenet from "@tensorflow-models/posenet";
 import useCoaching from "Hooks/useCoaching";
 import { drawKeypoints, drawSkeleton } from "Utils/draw";
 import Handler from "./Handler";
+import { setdiff1dAsync } from "@tensorflow/tfjs";
 
 interface IDrawResult {
     pose: posenet.Pose;
@@ -100,23 +101,6 @@ const WebcamWithPosenet = () => {
     return (
         <>
             <header>
-                <select value={posenetArchitecture}>
-                    <option
-                        onClick={() => {
-                            setPosenetArchitecture("MobileNetV1");
-                        }}
-                    >
-                        MobileNetV1
-                    </option>
-                    <option
-                        onClick={() => {
-                            setPosenetArchitecture("ResNet50");
-                        }}
-                    >
-                        ResNet50
-                    </option>
-                </select>
-
                 <Webcam
                     ref={webcamRef}
                     style={{
@@ -145,7 +129,12 @@ const WebcamWithPosenet = () => {
                     }}
                 />
             </header>
-            <Handler />
+            <Handler
+                setDetectTime={setDetectTime}
+                setPosenetArchitecture={setPosenetArchitecture}
+                setOutputStride={setOutputStride}
+                setResolution={setResolution}
+            />
         </>
     );
 };
