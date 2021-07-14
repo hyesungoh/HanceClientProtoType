@@ -6,6 +6,7 @@ import * as posenet from "@tensorflow-models/posenet";
 
 import useCoaching from "Hooks/useCoaching";
 import { drawKeypoints, drawSkeleton } from "Utils/draw";
+import Handler from "./Handler";
 
 interface IDrawResult {
     pose: posenet.Pose;
@@ -48,10 +49,10 @@ const WebcamWithPosenet = () => {
 
         drawKeypoints({
             keypoints: pose["keypoints"],
-            minConfidence: 0.4,
+            minConfidence: 0.5,
             ctx,
         });
-        drawSkeleton({ keypoints: pose["keypoints"], minConfidence: 0.4, ctx });
+        drawSkeleton({ keypoints: pose["keypoints"], minConfidence: 0.5, ctx });
     };
 
     const detectWebcamFeed = async (posenetModel: posenet.PoseNet) => {
@@ -97,52 +98,55 @@ const WebcamWithPosenet = () => {
     if (isLoading) return <div>LOADING ... </div>;
 
     return (
-        <header className="App-header">
-            <select>
-                <option
-                    onClick={() => {
-                        setPosenetArchitecture("MobileNetV1");
-                    }}
-                >
-                    MobileNetV1
-                </option>
-                <option
-                    onClick={() => {
-                        setPosenetArchitecture("ResNet50");
-                    }}
-                >
-                    ResNet50
-                </option>
-            </select>
+        <>
+            <header>
+                <select value={posenetArchitecture}>
+                    <option
+                        onClick={() => {
+                            setPosenetArchitecture("MobileNetV1");
+                        }}
+                    >
+                        MobileNetV1
+                    </option>
+                    <option
+                        onClick={() => {
+                            setPosenetArchitecture("ResNet50");
+                        }}
+                    >
+                        ResNet50
+                    </option>
+                </select>
 
-            <Webcam
-                ref={webcamRef}
-                style={{
-                    position: "absolute",
-                    marginLeft: "auto",
-                    marginRight: "auto",
-                    left: 0,
-                    right: 0,
-                    textAlign: "center",
-                    width: resolution.width,
-                    height: resolution.height,
-                }}
-            />
+                <Webcam
+                    ref={webcamRef}
+                    style={{
+                        position: "absolute",
+                        marginLeft: "auto",
+                        marginRight: "auto",
+                        left: 0,
+                        right: 0,
+                        textAlign: "center",
+                        width: resolution.width,
+                        height: resolution.height,
+                    }}
+                />
 
-            <canvas
-                ref={canvasRef}
-                style={{
-                    position: "absolute",
-                    marginLeft: "auto",
-                    marginRight: "auto",
-                    left: 0,
-                    right: 0,
-                    textAlign: "center",
-                    width: resolution.width,
-                    height: resolution.height,
-                }}
-            />
-        </header>
+                <canvas
+                    ref={canvasRef}
+                    style={{
+                        position: "absolute",
+                        marginLeft: "auto",
+                        marginRight: "auto",
+                        left: 0,
+                        right: 0,
+                        textAlign: "center",
+                        width: resolution.width,
+                        height: resolution.height,
+                    }}
+                />
+            </header>
+            <Handler />
+        </>
     );
 };
 
