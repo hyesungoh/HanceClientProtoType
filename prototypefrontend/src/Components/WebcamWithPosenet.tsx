@@ -7,7 +7,6 @@ import * as posenet from "@tensorflow-models/posenet";
 import useCoaching from "Hooks/useCoaching";
 import { drawKeypoints, drawSkeleton } from "Utils/draw";
 import Handler from "./Handler";
-import { setdiff1dAsync } from "@tensorflow/tfjs";
 
 interface IDrawResult {
     pose: posenet.Pose;
@@ -18,21 +17,21 @@ interface IDrawResult {
 
 const WebcamWithPosenet = () => {
     const [isLoading, setIsLoading] = useState<boolean>(true);
-    const [detectTime, setDetectTime] = useState<number>(200);
+    const [detectTime, setDetectTime] = useState<number>(33);
     const [posenetArchitecture, setPosenetArchitecture] = useState<
         "ResNet50" | "MobileNetV1"
-    >("ResNet50");
+    >("MobileNetV1");
     const [outputStride, setOutputStride] = useState<32 | 16 | 8>(16);
 
     const [resolution, setResolution] = useState<{
         width: number;
         height: number;
-    }>({ width: 240, height: 240 });
+    }>({ width: 500, height: 500 });
 
     const webcamRef = useRef<Webcam>(null);
     const canvasRef = useRef(null);
 
-    const { getFeedback } = useCoaching();
+    const { stackingPose } = useCoaching();
 
     const drawResult = ({
         pose,
@@ -66,10 +65,10 @@ const WebcamWithPosenet = () => {
             webcamRef.current.video.height = videoHeight;
 
             const pose = await posenetModel.estimateSinglePose(video);
-            const score = await getFeedback({ pose });
-            console.log(`예상 점수 : ${score}`);
+            stackingPose(pose);
 
-            drawResult({ pose, videoWidth, videoHeight, canvasRef });
+            // console.log(`예상 점수 : ${score}`);
+            // drawResult({ pose, videoWidth, videoHeight, canvasRef });
         }
     };
 
@@ -80,6 +79,7 @@ const WebcamWithPosenet = () => {
                 width: resolution.width,
                 height: resolution.height,
             },
+
             architecture: posenetArchitecture,
             outputStride: outputStride,
         });
@@ -130,9 +130,13 @@ const WebcamWithPosenet = () => {
                 />
             </header>
             <Handler
+                detectTime={detectTime}
                 setDetectTime={setDetectTime}
+                posenetArchitecture={posenetArchitecture}
                 setPosenetArchitecture={setPosenetArchitecture}
+                outputStride={outputStride}
                 setOutputStride={setOutputStride}
+                resolution={resolution}
                 setResolution={setResolution}
             />
         </>
