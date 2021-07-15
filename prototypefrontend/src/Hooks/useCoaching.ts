@@ -10,10 +10,18 @@ interface IComparePose {
 const useCoaching = () => {
     let frameId: number = 0;
     let poseStack: IComparePose[] = [];
+    // const [poseStack, setPoseStack] = useState<IComparePose[]>([]);
 
     const compareAlgorithm = async () => {
         // await 유사도 비교 알고리즘 수행
+
+        console.log(poseStack);
         poseStack = [];
+
+        // setPoseStack((poseStack) => {
+        //     console.log(poseStack);
+        //     return [];
+        // });
 
         // 여기서 유사도 비교 결과를 setStating 하고, 그 state를 반환해서 그려주자
     };
@@ -23,8 +31,10 @@ const useCoaching = () => {
             await compareAlgorithm();
         }, 1000);
 
-        return clearInterval(interval);
-    });
+        return () => {
+            clearInterval(interval);
+        };
+    }, []);
 
     const getFormattedPoseData = (pose: posenet.Pose) => {
         // frameId 증가
@@ -52,6 +62,7 @@ const useCoaching = () => {
     const stackingPose = (pose: posenet.Pose) => {
         const formattedPoseData: IComparePose = getFormattedPoseData(pose);
         poseStack.push(formattedPoseData);
+        // setPoseStack((prev) => [...prev, formattedPoseData]);
     };
 
     return { stackingPose };
