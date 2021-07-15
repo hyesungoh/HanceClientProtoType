@@ -17,7 +17,7 @@ interface IDrawResult {
 
 const WebcamWithPosenet = () => {
     const [isLoading, setIsLoading] = useState<boolean>(true);
-    const [detectTime, setDetectTime] = useState<number>(33);
+    const [detectTime, setDetectTime] = useState<number>(1000);
     const [posenetArchitecture, setPosenetArchitecture] = useState<
         "ResNet50" | "MobileNetV1"
     >("MobileNetV1");
@@ -65,10 +65,10 @@ const WebcamWithPosenet = () => {
             webcamRef.current.video.height = videoHeight;
 
             const pose = await posenetModel.estimateSinglePose(video);
+            console.log(pose.keypoints);
             stackingPose(pose);
 
-            // console.log(`예상 점수 : ${score}`);
-            // drawResult({ pose, videoWidth, videoHeight, canvasRef });
+            drawResult({ pose, videoWidth, videoHeight, canvasRef });
         }
     };
 
