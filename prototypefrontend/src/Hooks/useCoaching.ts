@@ -9,18 +9,25 @@ interface IComparePose {
 
 const useCoaching = () => {
     let frameId: number = 0;
-    const poseStack: IComparePose[] = [];
+    let poseStack: IComparePose[] = [];
 
-    // const [comparePoseStack, setComparePoseStack] = useState<IComparePose[]>(
-    //     []
-    // );
+    const compareAlgorithm = async () => {
+        // await 유사도 비교 알고리즘 수행
+        poseStack = [];
 
-    const compareAlgorithm = () => {
-        // 1. pose의 키포인트 값을 쌓아서 1초마다 비동기적으로 수행
-        // axios 액션이 아닌 여기서 비동기식으로 비교 알고리즘을 수행할 수 있게
+        // 여기서 유사도 비교 결과를 setStating 하고, 그 state를 반환해서 그려주자
     };
 
+    useEffect(() => {
+        const interval = setInterval(async () => {
+            await compareAlgorithm();
+        }, 1000);
+
+        return clearInterval(interval);
+    });
+
     const getFormattedPoseData = (pose: posenet.Pose) => {
+        // frameId 증가
         const formattedPoseData: IComparePose = {
             frameId: frameId++,
             keypoints: [],
@@ -44,6 +51,7 @@ const useCoaching = () => {
 
     const stackingPose = (pose: posenet.Pose) => {
         const formattedPoseData: IComparePose = getFormattedPoseData(pose);
+        poseStack.push(formattedPoseData);
     };
 
     return { stackingPose };
