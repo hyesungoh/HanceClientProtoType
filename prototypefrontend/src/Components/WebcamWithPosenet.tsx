@@ -19,7 +19,7 @@ interface IDrawResult {
 
 const WebcamWithPosenet = () => {
     const [isLoading, setIsLoading] = useState<boolean>(true);
-    const [detectTime, setDetectTime] = useState<number>(490);
+    const [detectTime, setDetectTime] = useState<number>(33);
     const [posenetArchitecture, setPosenetArchitecture] = useState<
         "ResNet50" | "MobileNetV1"
     >("MobileNetV1");
@@ -89,20 +89,27 @@ const WebcamWithPosenet = () => {
                 width: resolution.width,
                 height: resolution.height,
             },
-
             architecture: posenetArchitecture,
             outputStride: outputStride,
         });
         setIsLoading(false);
 
-        setInterval(() => {
+        const interval = setInterval(() => {
             detectWebcamFeed(posenetModel);
+            console.log(detectTime);
         }, detectTime);
+
+        return interval;
     };
 
     useEffect(() => {
-        runPosenet();
+        const interval = runPosenet();
 
+        return () => {
+            interval.then((t) => {
+                clearInterval(t);
+            });
+        };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [posenetArchitecture, outputStride, detectTime]);
 
@@ -110,19 +117,15 @@ const WebcamWithPosenet = () => {
 
     return (
         <Wrapper>
-            <Video />
+            <WebcamWrapper>
+                <Video />
+            </WebcamWrapper>
 
             <WebcamWrapper>
-                <Webcam
-                    ref={webcamRef}
-                    style={WebcamStyle}
-                />
-
-                <canvas
-                    ref={canvasRef}
-                    style={WebcamStyle}
-                />
+                <Webcam ref={webcamRef} style={WebcamStyle} />
+                <canvas ref={canvasRef} style={WebcamStyle} />
             </WebcamWrapper>
+
             <Handler
                 detectTime={detectTime}
                 setDetectTime={setDetectTime}
@@ -141,7 +144,6 @@ export default WebcamWithPosenet;
 
 const Wrapper = styled.div`
     position: relative;
-
     width: 100vw;
     height: 100vh;
     display: flex;
