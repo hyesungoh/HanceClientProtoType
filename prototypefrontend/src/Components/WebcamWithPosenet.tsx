@@ -1,4 +1,5 @@
 import { useRef, useState, useEffect } from "react";
+import styled from "styled-components";
 import Webcam from "react-webcam";
 
 import * as tf from "@tensorflow/tfjs";
@@ -98,7 +99,7 @@ const WebcamWithPosenet = () => {
     if (isLoading) return <div>LOADING ... </div>;
 
     return (
-        <>
+        <Wrapper>
             <header>
                 <Webcam
                     ref={webcamRef}
@@ -138,8 +139,16 @@ const WebcamWithPosenet = () => {
                 resolution={resolution}
                 setResolution={setResolution}
             />
-        </>
+        </Wrapper>
     );
 };
 
 export default WebcamWithPosenet;
+
+const Wrapper = styled.div`
+    position: relative;
+    
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+`;
