@@ -100,6 +100,7 @@ const WebcamWithPosenet = () => {
 
     return (
         <Wrapper>
+            
             <header>
                 <Webcam
                     ref={webcamRef}
