@@ -68,7 +68,7 @@ const WebcamWithPosenet = () => {
             const pose = await posenetModel.estimateSinglePose(video);
 
             stackingPose(pose);
-            // drawResult({ pose, videoWidth, videoHeight, canvasRef });
+            drawResult({ pose, videoWidth, videoHeight, canvasRef });
         }
     };
 
@@ -85,6 +85,7 @@ const WebcamWithPosenet = () => {
         });
         setIsLoading(false);
 
+        
         setInterval(() => {
             detectWebcamFeed(posenetModel);
         }, detectTime);
@@ -100,7 +101,6 @@ const WebcamWithPosenet = () => {
 
     return (
         <Wrapper>
-            
             <header>
                 <Webcam
                     ref={webcamRef}
