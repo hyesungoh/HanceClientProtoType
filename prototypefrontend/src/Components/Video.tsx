@@ -1,7 +1,11 @@
+import ReactPlayer from "react-player";
+
+import danceVideoSrc from "Static/Video/5.mp4";
+
 const Video = () => {
     return (
         <div>
-            <video></video>
+            <ReactPlayer url={danceVideoSrc} controls={true} />
         </div>
     );
 };

@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from "react";
-import styled from "styled-components";
+import styled, { CSSProperties } from "styled-components";
 import Webcam from "react-webcam";
 
 import * as tf from "@tensorflow/tfjs";
@@ -8,6 +8,7 @@ import * as posenet from "@tensorflow-models/posenet";
 import useCoaching from "Hooks/useCoaching";
 import { drawKeypoints, drawSkeleton } from "Utils/draw";
 import Handler from "./Handler";
+import Video from "./Video";
 
 interface IDrawResult {
     pose: posenet.Pose;
@@ -33,6 +34,15 @@ const WebcamWithPosenet = () => {
     const canvasRef = useRef(null);
 
     const { stackingPose } = useCoaching();
+
+    const WebcamStyle: CSSProperties = {
+        position: "absolute",
+        top: "0",
+        left: "0",
+        width: "100%",
+        height: "100%",
+        objectFit: "cover",
+    };
 
     const drawResult = ({
         pose,
@@ -85,7 +95,6 @@ const WebcamWithPosenet = () => {
         });
         setIsLoading(false);
 
-        
         setInterval(() => {
             detectWebcamFeed(posenetModel);
         }, detectTime);
@@ -101,35 +110,19 @@ const WebcamWithPosenet = () => {
 
     return (
         <Wrapper>
-            <header>
+            <Video />
+
+            <WebcamWrapper>
                 <Webcam
                     ref={webcamRef}
-                    style={{
-                        position: "absolute",
-                        marginLeft: "auto",
-                        marginRight: "auto",
-                        left: 0,
-                        right: 0,
-                        textAlign: "center",
-                        width: resolution.width,
-                        height: resolution.height,
-                    }}
+                    style={WebcamStyle}
                 />
 
                 <canvas
                     ref={canvasRef}
-                    style={{
-                        position: "absolute",
-                        marginLeft: "auto",
-                        marginRight: "auto",
-                        left: 0,
-                        right: 0,
-                        textAlign: "center",
-                        width: resolution.width,
-                        height: resolution.height,
-                    }}
+                    style={WebcamStyle}
                 />
-            </header>
+            </WebcamWrapper>
             <Handler
                 detectTime={detectTime}
                 setDetectTime={setDetectTime}
@@ -152,4 +145,12 @@ const Wrapper = styled.div`
     width: 100vw;
     height: 100vh;
     display: flex;
+`;
+
+const WebcamWrapper = styled.div`
+    position: relative;
+    width: 500px;
+    height: 100vh;
+
+    overflow: hidden;
 `;

@@ -1,5 +1,4 @@
 import * as posenet from "@tensorflow-models/posenet";
-import { Tuple } from "@tensorflow-models/posenet/dist/keypoints";
 
 const color = "aqua";
 const lineWidth = 2;
