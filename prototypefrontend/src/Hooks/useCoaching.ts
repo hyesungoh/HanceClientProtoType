@@ -15,7 +15,7 @@ const useCoaching = () => {
     const compareAlgorithm = async () => {
         // await 유사도 비교 알고리즘 수행
 
-        console.log(poseStack);
+        // console.log(poseStack);
         poseStack = [];
 
         // setPoseStack((poseStack) => {

@@ -94,7 +94,7 @@ const WebcamWithPosenet = () => {
         runPosenet();
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [posenetArchitecture]);
+    }, [posenetArchitecture, outputStride, detectTime]);
 
     if (isLoading) return <div>LOADING ... </div>;
 
@@ -147,7 +147,7 @@ export default WebcamWithPosenet;
 
 const Wrapper = styled.div`
     position: relative;
-    
+
     width: 100vw;
     height: 100vh;
     display: flex;
