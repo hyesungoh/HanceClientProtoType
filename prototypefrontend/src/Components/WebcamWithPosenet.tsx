@@ -25,7 +25,7 @@ const WebcamWithPosenet = () => {
     >("MobileNetV1");
     const [outputStride, setOutputStride] = useState<32 | 16 | 8>(16);
 
-    const [isPlaying, setIsPlaying] = useState<boolean>(false);
+    const [isPlaying, setIsPlaying] = useState<boolean>(true);
     const [playbackRate, setPlaybackRate] = useState<number>(1);
 
     const [resolution, setResolution] = useState<{
@@ -99,7 +99,6 @@ const WebcamWithPosenet = () => {
 
         const interval = setInterval(() => {
             detectWebcamFeed(posenetModel);
-            console.log(detectTime);
         }, detectTime);
 
         return interval;

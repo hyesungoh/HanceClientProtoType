@@ -63,7 +63,8 @@ const Handler = ({
 
     const onPlaybackRateClick = (e: React.MouseEvent<HTMLOptionElement>) => {
         const { value } = e.target as HTMLOptionElement;
-        setPlaybackRate(parseInt(value));
+        console.log(value);
+        setPlaybackRate(parseFloat(value));
     };
 
     return (
