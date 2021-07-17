@@ -1,9 +1,22 @@
+import { Dispatch, SetStateAction } from "react";
 import ReactPlayer from "react-player";
 import { CSSProperties } from "styled-components";
 
 import danceVideoSrc from "Static/Video/5.mp4";
 
-const Video = () => {
+interface IVideo {
+    isPlaying: boolean;
+    setIsPlaying: Dispatch<SetStateAction<boolean>>;
+    playbackRate: number;
+    setPlaybackRate: Dispatch<SetStateAction<number>>;
+}
+
+const Video = ({
+    isPlaying,
+    setIsPlaying,
+    playbackRate,
+    setPlaybackRate,
+}: IVideo) => {
     const WebcamStyle: CSSProperties = {
         position: "absolute",
         top: "0",
@@ -15,6 +28,9 @@ const Video = () => {
             url={danceVideoSrc}
             volume={0.3}
             style={WebcamStyle}
+            // controls={true}
+            playing={isPlaying}
+            playbackRate={playbackRate}
             width="100%"
             height="100%"
         />

@@ -15,6 +15,12 @@ interface IHandler {
 
     resolution: { width: number; height: number };
     setResolution: Dispatch<SetStateAction<{ width: number; height: number }>>;
+
+    isPlaying: boolean;
+    setIsPlaying: Dispatch<SetStateAction<boolean>>;
+
+    playbackRate: number;
+    setPlaybackRate: Dispatch<SetStateAction<number>>;
 }
 
 const Handler = ({
@@ -26,6 +32,10 @@ const Handler = ({
     setOutputStride,
     resolution,
     setResolution,
+    isPlaying,
+    setIsPlaying,
+    playbackRate,
+    setPlaybackRate,
 }: IHandler) => {
     const onDetectTimeClick = (e: React.MouseEvent<HTMLOptionElement>) => {
         const { value } = e.target as HTMLOptionElement;
@@ -49,6 +59,11 @@ const Handler = ({
         if (numValue === (8 || 16 || 32)) {
             setOutputStride(numValue);
         }
+    };
+
+    const onPlaybackRateClick = (e: React.MouseEvent<HTMLOptionElement>) => {
+        const { value } = e.target as HTMLOptionElement;
+        setPlaybackRate(parseInt(value));
     };
 
     return (
@@ -115,6 +130,18 @@ const Handler = ({
                     <option onClick={onOutputStrideClick}>8</option>
                     <option onClick={onOutputStrideClick}>16</option>
                     <option onClick={onOutputStrideClick}>32</option>
+                </select>
+            </SelectWrapper>
+
+            <SelectWrapper>
+                <span>Playback Rate </span>
+                <select defaultValue={playbackRate}>
+                    <option onClick={onPlaybackRateClick}>0.1</option>
+                    <option onClick={onPlaybackRateClick}>0.3</option>
+                    <option onClick={onPlaybackRateClick}>0.5</option>
+                    <option onClick={onPlaybackRateClick}>0.7</option>
+                    <option onClick={onPlaybackRateClick}>0.9</option>
+                    <option onClick={onPlaybackRateClick}>1</option>
                 </select>
             </SelectWrapper>
         </Wrapper>

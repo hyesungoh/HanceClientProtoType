@@ -25,6 +25,9 @@ const WebcamWithPosenet = () => {
     >("MobileNetV1");
     const [outputStride, setOutputStride] = useState<32 | 16 | 8>(16);
 
+    const [isPlaying, setIsPlaying] = useState<boolean>(false);
+    const [playbackRate, setPlaybackRate] = useState<number>(1);
+
     const [resolution, setResolution] = useState<{
         width: number;
         height: number;
@@ -110,6 +113,7 @@ const WebcamWithPosenet = () => {
                 clearInterval(t);
             });
         };
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [posenetArchitecture, outputStride, detectTime]);
 
@@ -118,7 +122,12 @@ const WebcamWithPosenet = () => {
     return (
         <Wrapper>
             <WebcamWrapper>
-                <Video />
+                <Video
+                    isPlaying={isPlaying}
+                    setIsPlaying={setIsPlaying}
+                    playbackRate={playbackRate}
+                    setPlaybackRate={setPlaybackRate}
+                />
             </WebcamWrapper>
 
             <WebcamWrapper>
@@ -135,6 +144,10 @@ const WebcamWithPosenet = () => {
                 setOutputStride={setOutputStride}
                 resolution={resolution}
                 setResolution={setResolution}
+                isPlaying={isPlaying}
+                setIsPlaying={setIsPlaying}
+                playbackRate={playbackRate}
+                setPlaybackRate={setPlaybackRate}
             />
         </Wrapper>
     );
