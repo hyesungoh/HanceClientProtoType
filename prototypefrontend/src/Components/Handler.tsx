@@ -21,6 +21,12 @@ interface IHandler {
 
     playbackRate: number;
     setPlaybackRate: Dispatch<SetStateAction<number>>;
+
+    keypointConfidence: number;
+    setKeyPointConfidence: Dispatch<SetStateAction<number>>;
+
+    skeletonConfidence: number;
+    setSkeletonConfidence: Dispatch<SetStateAction<number>>;
 }
 
 const Handler = ({
@@ -36,6 +42,10 @@ const Handler = ({
     setIsPlaying,
     playbackRate,
     setPlaybackRate,
+    keypointConfidence,
+    setKeyPointConfidence,
+    skeletonConfidence,
+    setSkeletonConfidence,
 }: IHandler) => {
     const onDetectTimeClick = (e: React.MouseEvent<HTMLOptionElement>) => {
         const { value } = e.target as HTMLOptionElement;
@@ -59,6 +69,20 @@ const Handler = ({
         if (numValue === (8 || 16 || 32)) {
             setOutputStride(numValue);
         }
+    };
+
+    const onKeypointConfidenceClick = (
+        e: React.MouseEvent<HTMLOptionElement>
+    ) => {
+        const { value } = e.target as HTMLOptionElement;
+        setKeyPointConfidence(parseFloat(value));
+    };
+
+    const onSkeletonConfidenceClick = (
+        e: React.MouseEvent<HTMLOptionElement>
+    ) => {
+        const { value } = e.target as HTMLOptionElement;
+        setSkeletonConfidence(parseFloat(value));
     };
 
     const onPlaybackRateClick = (e: React.MouseEvent<HTMLOptionElement>) => {
@@ -131,6 +155,36 @@ const Handler = ({
                     <option onClick={onOutputStrideClick}>8</option>
                     <option onClick={onOutputStrideClick}>16</option>
                     <option onClick={onOutputStrideClick}>32</option>
+                </select>
+            </SelectWrapper>
+
+            <SelectWrapper>
+                <span>Keypoint Confidence </span>
+                <select defaultValue={keypointConfidence}>
+                    <option onClick={onKeypointConfidenceClick}>0.1</option>
+                    <option onClick={onKeypointConfidenceClick}>0.2</option>
+                    <option onClick={onKeypointConfidenceClick}>0.3</option>
+                    <option onClick={onKeypointConfidenceClick}>0.4</option>
+                    <option onClick={onKeypointConfidenceClick}>0.5</option>
+                    <option onClick={onKeypointConfidenceClick}>0.6</option>
+                    <option onClick={onKeypointConfidenceClick}>0.7</option>
+                    <option onClick={onKeypointConfidenceClick}>0.8</option>
+                    <option onClick={onKeypointConfidenceClick}>0.9</option>
+                </select>
+            </SelectWrapper>
+
+            <SelectWrapper>
+                <span>Skeleton Confidence </span>
+                <select defaultValue={skeletonConfidence}>
+                    <option onClick={onSkeletonConfidenceClick}>0.1</option>
+                    <option onClick={onSkeletonConfidenceClick}>0.2</option>
+                    <option onClick={onSkeletonConfidenceClick}>0.3</option>
+                    <option onClick={onSkeletonConfidenceClick}>0.4</option>
+                    <option onClick={onSkeletonConfidenceClick}>0.5</option>
+                    <option onClick={onSkeletonConfidenceClick}>0.6</option>
+                    <option onClick={onSkeletonConfidenceClick}>0.7</option>
+                    <option onClick={onSkeletonConfidenceClick}>0.8</option>
+                    <option onClick={onSkeletonConfidenceClick}>0.9</option>
                 </select>
             </SelectWrapper>
 

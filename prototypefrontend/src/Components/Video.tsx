@@ -28,8 +28,8 @@ const Video = ({
             url={danceVideoSrc}
             volume={0.3}
             style={WebcamStyle}
-            controls
-            playing
+            // controls
+            // playing
             width="100%"
             height="100%"
             playbackRate={playbackRate}
