@@ -10,6 +10,7 @@ interface IComparePose {
 const useCoaching = () => {
     let frameId: number = 0;
     let poseStack: IComparePose[] = [];
+    let allPoseData: IComparePose[] = [];
     // const [poseStack, setPoseStack] = useState<IComparePose[]>([]);
 
     const compareAlgorithm = async () => {
@@ -62,6 +63,7 @@ const useCoaching = () => {
     const stackingPose = (pose: posenet.Pose) => {
         const formattedPoseData: IComparePose = getFormattedPoseData(pose);
         poseStack.push(formattedPoseData);
+        allPoseData.push(formattedPoseData);
         // setPoseStack((prev) => [...prev, formattedPoseData]);
     };
 
