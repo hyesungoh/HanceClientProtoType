@@ -8,6 +8,7 @@ interface IComparePose {
 }
 
 const useCoaching = () => {
+    const [isStartCompare, setIsStartCompare] = useState<boolean>(false);
     let frameId: number = 0;
     let poseStack: IComparePose[] = [];
     let allPoseData: IComparePose[] = [];
@@ -28,6 +29,8 @@ const useCoaching = () => {
     };
 
     useEffect(() => {
+        if (!isStartCompare) return;
+
         const interval = setInterval(async () => {
             await compareAlgorithm();
         }, 1000);
@@ -35,7 +38,9 @@ const useCoaching = () => {
         return () => {
             clearInterval(interval);
         };
-    }, []);
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isStartCompare]);
 
     const getFormattedPoseData = (pose: posenet.Pose) => {
         // frameId 증가
@@ -61,13 +66,15 @@ const useCoaching = () => {
     };
 
     const stackingPose = (pose: posenet.Pose) => {
+        if (!isStartCompare) return;
+
         const formattedPoseData: IComparePose = getFormattedPoseData(pose);
         poseStack.push(formattedPoseData);
         allPoseData.push(formattedPoseData);
         // setPoseStack((prev) => [...prev, formattedPoseData]);
     };
 
-    return { stackingPose };
+    return { stackingPose, setIsStartCompare };
 };
 
 export default useCoaching;

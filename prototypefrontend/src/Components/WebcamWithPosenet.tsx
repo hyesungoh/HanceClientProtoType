@@ -19,6 +19,8 @@ interface IDrawResult {
 
 const WebcamWithPosenet = () => {
     const [isLoading, setIsLoading] = useState<boolean>(true);
+
+    // for posenet model
     const [detectTime, setDetectTime] = useState<number>(33);
     const [posenetArchitecture, setPosenetArchitecture] = useState<
         "ResNet50" | "MobileNetV1"
@@ -26,19 +28,19 @@ const WebcamWithPosenet = () => {
     const [outputStride, setOutputStride] = useState<32 | 16 | 8>(16);
     const [keypointConfidence, setKeypointConfidence] = useState<number>(0.5);
     const [skeletonConfidence, setSkeletonConfidence] = useState<number>(0.5);
-
-    const [isPlaying, setIsPlaying] = useState<boolean>(true);
-    const [playbackRate, setPlaybackRate] = useState<number>(1);
-
     const [resolution, setResolution] = useState<{
         width: number;
         height: number;
     }>({ width: 500, height: 500 });
 
+    // for reference video
+    const [isPlaying, setIsPlaying] = useState<boolean>(true);
+    const [playbackRate, setPlaybackRate] = useState<number>(1);
+
     const webcamRef = useRef<Webcam>(null);
     const canvasRef = useRef(null);
 
-    const { stackingPose } = useCoaching();
+    const { stackingPose, setIsStartCompare } = useCoaching();
 
     const WebcamStyle: CSSProperties = {
         position: "absolute",
