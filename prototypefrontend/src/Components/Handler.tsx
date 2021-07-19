@@ -27,6 +27,9 @@ interface IHandler {
 
     skeletonConfidence: number;
     setSkeletonConfidence: Dispatch<SetStateAction<number>>;
+
+    isStartCompare: boolean;
+    setIsStartCompare: Dispatch<SetStateAction<boolean>>;
 }
 
 const Handler = ({
@@ -199,6 +202,8 @@ const Handler = ({
                     <option onClick={onPlaybackRateClick}>1</option>
                 </select>
             </SelectWrapper>
+
+            <StartBtn>START</StartBtn>
         </Wrapper>
     );
 };
@@ -216,4 +221,20 @@ const Wrapper = styled.section`
 
 const SelectWrapper = styled.div`
     color: #50586c;
+`;
+
+const StartBtn = styled.button`
+    all: unset;
+    width: 100%;
+    height: 40px;
+    background-color: #50586c;
+    cursor: pointer;
+
+    text-align: center;
+    color: #dce2f0;
+
+    &:hover {
+        color: #50586c;
+        background-color: #dce2f0;
+    }
 `;

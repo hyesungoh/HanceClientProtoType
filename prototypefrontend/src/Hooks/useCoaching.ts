@@ -74,7 +74,7 @@ const useCoaching = () => {
         // setPoseStack((prev) => [...prev, formattedPoseData]);
     };
 
-    return { stackingPose, setIsStartCompare };
+    return { stackingPose, isStartCompare, setIsStartCompare };
 };
 
 export default useCoaching;

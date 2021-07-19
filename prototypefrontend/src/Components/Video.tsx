@@ -9,6 +9,7 @@ interface IVideo {
     setIsPlaying: Dispatch<SetStateAction<boolean>>;
     playbackRate: number;
     setPlaybackRate: Dispatch<SetStateAction<number>>;
+    isStartCompare: boolean;
 }
 
 const Video = ({
@@ -16,6 +17,7 @@ const Video = ({
     setIsPlaying,
     playbackRate,
     setPlaybackRate,
+    isStartCompare,
 }: IVideo) => {
     const WebcamStyle: CSSProperties = {
         position: "absolute",
@@ -28,8 +30,8 @@ const Video = ({
             url={danceVideoSrc}
             volume={0.3}
             style={WebcamStyle}
-            controls
-            // playing
+            controls={!isStartCompare}
+            playing={isStartCompare}
             width="100%"
             height="100%"
             playbackRate={playbackRate}

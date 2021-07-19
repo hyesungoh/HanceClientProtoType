@@ -40,7 +40,7 @@ const WebcamWithPosenet = () => {
     const webcamRef = useRef<Webcam>(null);
     const canvasRef = useRef(null);
 
-    const { stackingPose, setIsStartCompare } = useCoaching();
+    const { stackingPose, isStartCompare, setIsStartCompare } = useCoaching();
 
     const WebcamStyle: CSSProperties = {
         position: "absolute",
@@ -134,6 +134,7 @@ const WebcamWithPosenet = () => {
                     setIsPlaying={setIsPlaying}
                     playbackRate={playbackRate}
                     setPlaybackRate={setPlaybackRate}
+                    isStartCompare={isStartCompare}
                 />
             </WebcamWrapper>
 
@@ -159,6 +160,8 @@ const WebcamWithPosenet = () => {
                 setKeyPointConfidence={setKeypointConfidence}
                 skeletonConfidence={skeletonConfidence}
                 setSkeletonConfidence={setSkeletonConfidence}
+                isStartCompare={isStartCompare}
+                setIsStartCompare={setIsStartCompare}
             />
         </Wrapper>
     );
