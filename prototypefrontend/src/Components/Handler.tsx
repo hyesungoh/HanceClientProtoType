@@ -49,6 +49,8 @@ const Handler = ({
     setKeyPointConfidence,
     skeletonConfidence,
     setSkeletonConfidence,
+    isStartCompare,
+    setIsStartCompare,
 }: IHandler) => {
     const onDetectTimeClick = (e: React.MouseEvent<HTMLOptionElement>) => {
         const { value } = e.target as HTMLOptionElement;
@@ -94,6 +96,11 @@ const Handler = ({
         setPlaybackRate(parseFloat(value));
     };
 
+    const onStartClick = () => {
+        setTimeout(() => {
+            setIsStartCompare(true);
+        }, 3000); 
+    };
     return (
         <Wrapper>
             <SelectWrapper>
@@ -203,7 +210,11 @@ const Handler = ({
                 </select>
             </SelectWrapper>
 
-            <StartBtn>START</StartBtn>
+            {isStartCompare ? (
+                ""
+            ) : (
+                <StartBtn onClick={onStartClick}>START</StartBtn>
+            )}
         </Wrapper>
     );
 };

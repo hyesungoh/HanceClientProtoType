@@ -9,6 +9,7 @@ import useCoaching from "Hooks/useCoaching";
 import { drawKeypoints, drawSkeleton } from "Utils/draw";
 import Handler from "./Handler";
 import Video from "./Video";
+import { useCallback } from "react";
 
 interface IDrawResult {
     pose: posenet.Pose;
@@ -122,7 +123,7 @@ const WebcamWithPosenet = () => {
         };
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [posenetArchitecture, outputStride, detectTime]);
+    }, [posenetArchitecture, outputStride, detectTime, isStartCompare]);
 
     if (isLoading) return <div>LOADING ... </div>;
 

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import * as posenet from "@tensorflow-models/posenet";
 
 interface IComparePose {
@@ -17,7 +17,8 @@ const useCoaching = () => {
     const compareAlgorithm = async () => {
         // await 유사도 비교 알고리즘 수행
 
-        // console.log(poseStack);
+        console.log(poseStack);
+        console.log(allPoseData);
         poseStack = [];
 
         // setPoseStack((poseStack) => {
@@ -30,6 +31,7 @@ const useCoaching = () => {
 
     useEffect(() => {
         if (!isStartCompare) return;
+        console.log("start compare !!");
 
         const interval = setInterval(async () => {
             await compareAlgorithm();
@@ -67,14 +69,25 @@ const useCoaching = () => {
 
     const stackingPose = (pose: posenet.Pose) => {
         if (!isStartCompare) return;
-
+    
         const formattedPoseData: IComparePose = getFormattedPoseData(pose);
         poseStack.push(formattedPoseData);
         allPoseData.push(formattedPoseData);
         // setPoseStack((prev) => [...prev, formattedPoseData]);
     };
 
-    return { stackingPose, isStartCompare, setIsStartCompare };
+    // const stackingPose = useCallback(
+    //     (pose: posenet.Pose) => {
+    //         if (!isStartCompare) return;
+
+    //         const formattedPoseData: IComparePose = getFormattedPoseData(pose);
+    //         poseStack.push(formattedPoseData);
+    //         allPoseData.push(formattedPoseData);
+    //     },
+    //     [isStartCompare]
+    // );
+
+    return { stackingPose, isStartCompare, setIsStartCompare};
 };
 
 export default useCoaching;
