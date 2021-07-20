@@ -1,5 +1,8 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import * as posenet from "@tensorflow-models/posenet";
+
+import l2noramlization from "Utils/Algorithm/preprocessing";
+import compareFrames from "Utils/Algorithm/comparison";
 
 interface IComparePose {
     frameId: number;
@@ -21,10 +24,9 @@ const useCoaching = () => {
         console.log(allPoseData);
         poseStack = [];
 
-        // setPoseStack((poseStack) => {
-        //     console.log(poseStack);
-        //     return [];
-        // });
+
+        const preprocedPose = await l2noramlization(poseStack);
+        const compareResult = await compareFrames(preprocedPose, ,95, 75);
 
         // 여기서 유사도 비교 결과를 setStating 하고, 그 state를 반환해서 그려주자
     };
@@ -69,7 +71,7 @@ const useCoaching = () => {
 
     const stackingPose = (pose: posenet.Pose) => {
         if (!isStartCompare) return;
-    
+
         const formattedPoseData: IComparePose = getFormattedPoseData(pose);
         poseStack.push(formattedPoseData);
         allPoseData.push(formattedPoseData);
@@ -87,7 +89,7 @@ const useCoaching = () => {
     //     [isStartCompare]
     // );
 
-    return { stackingPose, isStartCompare, setIsStartCompare};
+    return { stackingPose, isStartCompare, setIsStartCompare };
 };
 
 export default useCoaching;
