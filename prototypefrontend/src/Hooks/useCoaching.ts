@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import * as posenet from "@tensorflow-models/posenet";
-import { writeFile, appendFile } from "fs";
 
 import l2noramlization from "Utils/Algorithm/preprocessing";
 import compareFrames from "Utils/Algorithm/comparison";
@@ -18,10 +17,7 @@ const useCoaching = () => {
     let poseStack: IComparePose[] = [];
     let allPoseData: IComparePose[] = [];
 
-    const date = new Date();
-    const fileTitle: string = `${date.getMonth()}${date.getDay()}${date.getHours()}${date.getMinutes()}`;
-    
-
+    let currentSecond: number = 0;
     // const fileTitle: string = ""
     // const [poseStack, setPoseStack] = useState<IComparePose[]>([]);
 
@@ -34,8 +30,9 @@ const useCoaching = () => {
         // const compareResult = compareFrames(preprocedPose, serverData, 97, 75);
         const compareResult = compareFrames(preprocedPose, weride2Data, 97, 75);
 
-        console.log(compareResult.meanScore);
-        console.log(compareResult.isPassed);
+        console.log(`${currentSecond - 1} ~ ${currentSecond}`);
+        console.log("isPassed : ", compareResult.isPassed);
+        console.log("meanScore : ", compareResult.meanScore);
         poseStack = [];
     };
 
@@ -44,6 +41,7 @@ const useCoaching = () => {
         console.log("start compare !!");
 
         const interval = setInterval(async () => {
+            currentSecond++;
             await compareAlgorithm();
         }, 1000);
 
