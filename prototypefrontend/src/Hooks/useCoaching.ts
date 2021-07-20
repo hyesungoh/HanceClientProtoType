@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
 import * as posenet from "@tensorflow-models/posenet";
+import { writeFile, appendFile } from "fs";
 
 import l2noramlization from "Utils/Algorithm/preprocessing";
 import compareFrames from "Utils/Algorithm/comparison";
 import serverData from "Static/Data/serverData";
-
+import { data as weride2Data } from "Static/Data/weride2Data";
 interface IComparePose {
     frameId: number;
     keypoints: number[];
@@ -16,6 +17,12 @@ const useCoaching = () => {
     let frameId: number = 0;
     let poseStack: IComparePose[] = [];
     let allPoseData: IComparePose[] = [];
+
+    const date = new Date();
+    const fileTitle: string = `${date.getMonth()}${date.getDay()}${date.getHours()}${date.getMinutes()}`;
+    
+
+    // const fileTitle: string = ""
     // const [poseStack, setPoseStack] = useState<IComparePose[]>([]);
 
     const compareAlgorithm = async () => {
@@ -24,10 +31,11 @@ const useCoaching = () => {
         // console.log(allPoseData);
 
         const preprocedPose = l2noramlization(poseStack);
-        const compareResult = compareFrames(preprocedPose, serverData, 95, 75);
+        // const compareResult = compareFrames(preprocedPose, serverData, 97, 75);
+        const compareResult = compareFrames(preprocedPose, weride2Data, 97, 75);
 
         console.log(compareResult.meanScore);
-
+        console.log(compareResult.isPassed);
         poseStack = [];
     };
 

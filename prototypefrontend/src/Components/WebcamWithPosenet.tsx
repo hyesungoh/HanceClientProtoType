@@ -140,7 +140,7 @@ const WebcamWithPosenet = () => {
             </WebcamWrapper>
 
             <WebcamWrapper>
-                <Webcam ref={webcamRef} style={WebcamStyle} />
+                <Webcam ref={webcamRef} style={WebcamStyle}/>
                 <canvas ref={canvasRef} style={WebcamStyle} />
             </WebcamWrapper>
 

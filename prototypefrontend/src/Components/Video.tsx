@@ -2,7 +2,8 @@ import { Dispatch, SetStateAction } from "react";
 import ReactPlayer from "react-player";
 import { CSSProperties } from "styled-components";
 
-import danceVideoSrc from "Static/Video/5.mp4";
+import danceVideoSrc from "Static/Video/10.mp4";
+import weride2VideoSrc from "Static/Video/weride2.mp4";
 
 interface IVideo {
     isPlaying: boolean;
@@ -27,13 +28,15 @@ const Video = ({
 
     return (
         <ReactPlayer
-            url={danceVideoSrc}
+            url={weride2VideoSrc}
+            // url={danceVideoSrc}
             volume={0.3}
             style={WebcamStyle}
             controls={!isStartCompare}
             playing={isStartCompare}
             width="100%"
             height="100%"
+            mi
             playbackRate={playbackRate}
         />
     );
