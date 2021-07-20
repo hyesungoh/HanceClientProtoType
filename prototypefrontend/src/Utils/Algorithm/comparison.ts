@@ -60,7 +60,8 @@ const compareFrames = (
         meanScore: 0,
         underScoreFrames: [],
     };
-    if (userFrames.length == 0 || serverFrames.length == 0) {
+    
+    if (userFrames.length === 0 || serverFrames.length === 0) {
         return result;
     }
     let sumHighestScore = 0;

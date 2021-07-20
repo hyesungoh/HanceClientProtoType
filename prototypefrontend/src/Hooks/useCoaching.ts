@@ -3,6 +3,7 @@ import * as posenet from "@tensorflow-models/posenet";
 
 import l2noramlization from "Utils/Algorithm/preprocessing";
 import compareFrames from "Utils/Algorithm/comparison";
+import serverData from "Static/Data/serverData";
 
 interface IComparePose {
     frameId: number;
@@ -19,16 +20,15 @@ const useCoaching = () => {
 
     const compareAlgorithm = async () => {
         // await 유사도 비교 알고리즘 수행
+        // console.log(poseStack);
+        // console.log(allPoseData);
 
-        console.log(poseStack);
-        console.log(allPoseData);
+        const preprocedPose = l2noramlization(poseStack);
+        const compareResult = compareFrames(preprocedPose, serverData, 95, 75);
+
+        console.log(compareResult.meanScore);
+
         poseStack = [];
-
-
-        const preprocedPose = await l2noramlization(poseStack);
-        const compareResult = await compareFrames(preprocedPose, ,95, 75);
-
-        // 여기서 유사도 비교 결과를 setStating 하고, 그 state를 반환해서 그려주자
     };
 
     useEffect(() => {
