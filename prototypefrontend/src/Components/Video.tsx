@@ -1,9 +1,11 @@
 import { Dispatch, SetStateAction } from "react";
 import ReactPlayer from "react-player";
-import { CSSProperties } from "styled-components";
+import styled, { CSSProperties } from "styled-components";
 
 import danceVideoSrc from "Static/Video/10.mp4";
 import weride2VideoSrc from "Static/Video/weride2.mp4";
+import { useRef } from "react";
+import { useEffect } from "react";
 
 interface IVideo {
     isPlaying: boolean;
@@ -26,21 +28,35 @@ const Video = ({
         left: "0",
     };
 
+    const videoRef = useRef<ReactPlayer>(null);
+    const handleStart = () => {
+        setInterval(() => {
+            console.log(videoRef.current?.getCurrentTime());
+        }, 1000);
+    };
     return (
-        <ReactPlayer
-            url={weride2VideoSrc}
-            // url={danceVideoSrc}
-            volume={0.3}
-            style={WebcamStyle}
-            // controls={!isStartCompare}
-            controls={true}
-            playing={isStartCompare}
-            width="100%"
-            height="100%"
-            mi
-            playbackRate={playbackRate}
-        />
+        <VideoWrapper>
+            <ReactPlayer
+                ref={videoRef}
+                url={weride2VideoSrc}
+                // url={danceVideoSrc}
+                volume={0.3}
+                style={WebcamStyle}
+                controls={true}
+                playsinline={true}
+                playing={isStartCompare}
+                width="100%"
+                height="100%"
+                playbackRate={playbackRate}
+                onStart={handleStart}
+            />
+        </VideoWrapper>
     );
 };
 
 export default Video;
+
+const VideoWrapper = styled.div`
+    width: auto;
+    height: auto;
+`;
