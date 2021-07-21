@@ -9,6 +9,7 @@ import useCoaching from "Hooks/useCoaching";
 import { drawKeypoints, drawSkeleton } from "Utils/draw";
 import Handler from "./Handler";
 import Video from "./Video";
+import Score from "./Score";
 
 interface IDrawResult {
     pose: posenet.Pose;
@@ -108,13 +109,12 @@ const WebcamWithPosenet = () => {
         const interval = setInterval(() => {
             detectWebcamFeed(posenetModel);
         }, detectTime);
-    
+
         return interval;
     };
 
     useEffect(() => {
         const interval = runPosenet();
-        
 
         return () => {
             interval.then((t) => {
@@ -164,6 +164,8 @@ const WebcamWithPosenet = () => {
                 isStartCompare={isStartCompare}
                 setIsStartCompare={setIsStartCompare}
             />
+
+            <Score />
         </Wrapper>
     );
 };

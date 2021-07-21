@@ -5,6 +5,8 @@ import l2noramlization from "Utils/Algorithm/preprocessing";
 import compareFrames from "Utils/Algorithm/comparison";
 import serverData from "Static/Data/serverData";
 import { data as weride2Data } from "Static/Data/weride2Data";
+import { useSetRecoilState } from "recoil";
+import { compareCurrentMeanScoreState, compareIsPassedState } from "Store";
 interface IComparePose {
     frameId: number;
     keypoints: number[];
@@ -13,6 +15,10 @@ interface IComparePose {
 
 const useCoaching = () => {
     const [isStartCompare, setIsStartCompare] = useState<boolean>(false);
+
+    const setMeanScore = useSetRecoilState(compareCurrentMeanScoreState);
+    const setIsPassed = useSetRecoilState(compareIsPassedState);
+
     let frameId: number = 0;
     let poseStack: IComparePose[] = [];
     let allPoseData: IComparePose[] = [];
@@ -42,9 +48,9 @@ const useCoaching = () => {
                 97,
                 75
             );
-            
-            console.log("isPassed : ", compareResult.isPassed);
-            console.log("meanScore : ", compareResult.meanScore);
+
+            setIsPassed(compareResult.isPassed);
+            setMeanScore(compareResult.meanScore);
             poseStack = [];
         }
     };

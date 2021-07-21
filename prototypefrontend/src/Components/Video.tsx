@@ -6,6 +6,8 @@ import danceVideoSrc from "Static/Video/10.mp4";
 import weride2VideoSrc from "Static/Video/weride2.mp4";
 import { useRef } from "react";
 import { useEffect } from "react";
+import { useSetRecoilState } from "recoil";
+import { videoCurrentTimeState } from "Store";
 
 interface IVideo {
     isPlaying: boolean;
@@ -29,9 +31,14 @@ const Video = ({
     };
 
     const videoRef = useRef<ReactPlayer>(null);
+    const setVideoCurrentTime = useSetRecoilState(videoCurrentTimeState);
+
     const handleStart = () => {
         setInterval(() => {
-            console.log(videoRef.current?.getCurrentTime());
+            if (!videoRef.current) return;
+
+            const tTime = videoRef.current?.getCurrentTime();
+            setVideoCurrentTime(tTime);
         }, 1000);
     };
     return (

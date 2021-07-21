@@ -1,16 +1,16 @@
 import { atom } from "recoil";
 
-const videoCurrentTimeState = atom<number>({
+export const videoCurrentTimeState = atom<number>({
     default: 0,
     key: "videoCurrentTImeState",
 });
 
-const compareCurrentMeanScoreState = atom<number>({
+export const compareCurrentMeanScoreState = atom<number>({
     default: 0,
     key: "compareCurrentMeanScoreState",
 });
 
-const compareIsPassedState = atom<boolean>({
+export const compareIsPassedState = atom<boolean>({
     default: false,
     key: "compareIsPassedState",
 });
