@@ -9,7 +9,6 @@ import useCoaching from "Hooks/useCoaching";
 import { drawKeypoints, drawSkeleton } from "Utils/draw";
 import Handler from "./Handler";
 import Video from "./Video";
-import { useCallback } from "react";
 
 interface IDrawResult {
     pose: posenet.Pose;
@@ -22,7 +21,7 @@ const WebcamWithPosenet = () => {
     const [isLoading, setIsLoading] = useState<boolean>(true);
 
     // for posenet model
-    const [detectTime, setDetectTime] = useState<number>(300);
+    const [detectTime, setDetectTime] = useState<number>(60);
     const [posenetArchitecture, setPosenetArchitecture] = useState<
         "ResNet50" | "MobileNetV1"
     >("MobileNetV1");
@@ -109,7 +108,7 @@ const WebcamWithPosenet = () => {
         const interval = setInterval(() => {
             detectWebcamFeed(posenetModel);
         }, detectTime);
-        console.log(tf.getBackend());
+    
         return interval;
     };
 
