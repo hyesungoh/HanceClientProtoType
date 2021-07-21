@@ -26,19 +26,31 @@ const useCoaching = () => {
         // console.log(poseStack);
         // console.log(allPoseData);
 
-        const preprocedPose = l2noramlization(poseStack);
-        // const compareResult = compareFrames(preprocedPose, serverData, 97, 75);
-        const compareResult = compareFrames(preprocedPose, weride2Data, 97, 75);
+        const weride2DataSeconds = 19;
+        const serverDataFps = weride2Data.length / weride2DataSeconds;
+        console.log(`compare Start ! ${currentSecond - 1} ~ ${currentSecond}`);
 
-        console.log(`${currentSecond - 1} ~ ${currentSecond}`);
-        console.log("isPassed : ", compareResult.isPassed);
-        console.log("meanScore : ", compareResult.meanScore);
-        poseStack = [];
+        if (currentSecond > 0) {
+            const startIdx = (currentSecond - 1) * serverDataFps;
+            const endIdx = currentSecond * serverDataFps;
+            const slicedServerData = weride2Data.slice(startIdx, endIdx);
+
+            const preprocedPose = l2noramlization(poseStack);
+            const compareResult = compareFrames(
+                preprocedPose,
+                slicedServerData,
+                97,
+                75
+            );
+            
+            console.log("isPassed : ", compareResult.isPassed);
+            console.log("meanScore : ", compareResult.meanScore);
+            poseStack = [];
+        }
     };
 
     useEffect(() => {
         if (!isStartCompare) return;
-        console.log("start compare !!");
 
         const interval = setInterval(async () => {
             currentSecond++;

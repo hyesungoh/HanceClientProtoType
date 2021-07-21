@@ -22,7 +22,7 @@ const WebcamWithPosenet = () => {
     const [isLoading, setIsLoading] = useState<boolean>(true);
 
     // for posenet model
-    const [detectTime, setDetectTime] = useState<number>(33);
+    const [detectTime, setDetectTime] = useState<number>(300);
     const [posenetArchitecture, setPosenetArchitecture] = useState<
         "ResNet50" | "MobileNetV1"
     >("MobileNetV1");
@@ -109,12 +109,13 @@ const WebcamWithPosenet = () => {
         const interval = setInterval(() => {
             detectWebcamFeed(posenetModel);
         }, detectTime);
-
+        console.log(tf.getBackend());
         return interval;
     };
 
     useEffect(() => {
         const interval = runPosenet();
+        
 
         return () => {
             interval.then((t) => {
@@ -140,7 +141,7 @@ const WebcamWithPosenet = () => {
             </WebcamWrapper>
 
             <WebcamWrapper>
-                <Webcam ref={webcamRef} style={WebcamStyle}/>
+                <Webcam ref={webcamRef} style={WebcamStyle} />
                 <canvas ref={canvasRef} style={WebcamStyle} />
             </WebcamWrapper>
 
