@@ -129,7 +129,7 @@ const WebcamWithPosenet = () => {
 
     return (
         <Wrapper>
-            <WebcamWrapper>
+            {/* <WebcamWrapper>
                 <Video
                     isPlaying={isPlaying}
                     setIsPlaying={setIsPlaying}
@@ -137,12 +137,12 @@ const WebcamWithPosenet = () => {
                     setPlaybackRate={setPlaybackRate}
                     isStartCompare={isStartCompare}
                 />
-            </WebcamWrapper>
+            </WebcamWrapper> */}
 
-            <WebcamWrapper>
+            {/* <WebcamWrapper>
                 <Webcam ref={webcamRef} style={WebcamStyle} />
                 <canvas ref={canvasRef} style={WebcamStyle} />
-            </WebcamWrapper>
+            </WebcamWrapper> */}
 
             <Handler
                 detectTime={detectTime}

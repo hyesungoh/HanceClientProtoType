@@ -1,6 +1,8 @@
 import React, { Dispatch, SetStateAction } from "react";
 import styled from "styled-components";
 
+import { Button, Select, MenuItem, SelectProps } from "@material-ui/core";
+
 interface IHandler {
     detectTime: number;
     setDetectTime: Dispatch<SetStateAction<number>>;
@@ -52,6 +54,10 @@ const Handler = ({
     isStartCompare,
     setIsStartCompare,
 }: IHandler) => {
+    const onArchitectureChange = (e: React.FormEvent<SelectProps>) => {
+        console.log((e.target as HTMLOptionElement).value);
+    };
+
     const onDetectTimeClick = (e: React.MouseEvent<HTMLOptionElement>) => {
         const { value } = e.target as HTMLOptionElement;
         setDetectTime(parseInt(value));
@@ -99,12 +105,21 @@ const Handler = ({
     const onStartClick = () => {
         setTimeout(() => {
             setIsStartCompare(true);
-        }, 3000); 
+        }, 3000);
     };
     return (
         <Wrapper>
             <SelectWrapper>
-                <span>posenet model </span>
+                <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={posenetArchitecture}
+                    onChange={onArchitectureChange}
+                >
+                    <MenuItem value={"MobileNetV1"}>MobileNetV1</MenuItem>
+                    <MenuItem value={"ResNet50"}>ResNet50</MenuItem>
+                </Select>
+                {/* <span>posenet model </span>
                 <select defaultValue={posenetArchitecture}>
                     <option
                         onClick={() => {
@@ -120,7 +135,7 @@ const Handler = ({
                     >
                         ResNet50
                     </option>
-                </select>
+                </select> */}
             </SelectWrapper>
 
             <SelectWrapper>
@@ -215,7 +230,13 @@ const Handler = ({
             {isStartCompare ? (
                 ""
             ) : (
-                <StartBtn onClick={onStartClick}>START</StartBtn>
+                <Button
+                    variant="contained"
+                    style={{ width: "100%" }}
+                    onClick={onStartClick}
+                >
+                    START
+                </Button>
             )}
         </Wrapper>
     );
