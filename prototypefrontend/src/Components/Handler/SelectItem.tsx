@@ -20,8 +20,10 @@ const SelectItem = ({
         <Wrapper>
             <InputLabel htmlFor={id}>{inputLabel}</InputLabel>
             <Select labelId={id} id={id} value={value} onChange={onChange}>
-                {menuItems.map((menuItem) => (
-                    <MenuItem value={menuItem}>{menuItem}</MenuItem>
+                {menuItems.map((menuItem, index) => (
+                    <MenuItem key={index} value={menuItem}>
+                        {menuItem}
+                    </MenuItem>
                 ))}
             </Select>
         </Wrapper>

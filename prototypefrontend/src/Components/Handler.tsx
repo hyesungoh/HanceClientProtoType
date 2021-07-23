@@ -62,15 +62,12 @@ const Handler = ({
     setIsStartCompare,
 }: IHandler) => {
     const onArchitectureChange = (e: React.FormEvent<SelectProps>) => {
-        console.log((e.target as HTMLOptionElement).value);
+        const { value } = e.target as HTMLOptionElement;
+        if (value === "ResNet50" || value === "MobileNetV1")
+            setPosenetArchitecture(value);
     };
 
     const onDetectTimeChange = (e: React.FormEvent<SelectProps>) => {
-        const { value } = e.target as HTMLOptionElement;
-        setDetectTime(parseInt(value));
-    };
-
-    const onDetectTimeClick = (e: React.MouseEvent<HTMLOptionElement>) => {
         const { value } = e.target as HTMLOptionElement;
         setDetectTime(parseInt(value));
     };
@@ -121,19 +118,13 @@ const Handler = ({
     };
     return (
         <Wrapper>
-            <SelectWrapper>
-                <InputLabel htmlFor="architecture">Architecture</InputLabel>
-                <Select
-                    labelId="architecture"
-                    id="architecture"
-                    value={posenetArchitecture}
-                    onChange={onArchitectureChange}
-                >
-                    <MenuItem value={"MobileNetV1"}>MobileNetV1</MenuItem>
-                    <MenuItem value={"ResNet50"}>ResNet50</MenuItem>
-                </Select>
-            </SelectWrapper>
-
+            <SelectItem
+                inputLabel="Architecture"
+                id="architecture"
+                value={posenetArchitecture}
+                onChange={onArchitectureChange}
+                menuItems={["MobileNetV1", "ResNet50"]}
+            />
             <SelectItem
                 inputLabel="Detect Time"
                 id="detectTime"
@@ -141,21 +132,7 @@ const Handler = ({
                 onChange={onDetectTimeChange}
                 menuItems={[33, 50, 60, 70, 80, 90, 100, 200, 300, 400, 490]}
             />
-
-            <SelectWrapper>
-                <span>Detect Time </span>
-                <select defaultValue={detectTime}>
-                    <option onClick={onDetectTimeClick}>33</option>
-                    <option onClick={onDetectTimeClick}>50</option>
-                    <option onClick={onDetectTimeClick}>60</option>
-                    <option onClick={onDetectTimeClick}>66</option>
-                    <option onClick={onDetectTimeClick}>100</option>
-                    <option onClick={onDetectTimeClick}>200</option>
-                    <option onClick={onDetectTimeClick}>300</option>
-                    <option onClick={onDetectTimeClick}>490</option>
-                </select>
-            </SelectWrapper>
-
+            
             <SelectWrapper>
                 <span>resolution - width </span>
                 <select defaultValue={resolution.width}>
@@ -167,7 +144,6 @@ const Handler = ({
                     <option onClick={onWidthClick}>900</option>
                 </select>
             </SelectWrapper>
-
             <SelectWrapper>
                 <span>resolution - height </span>
                 <select defaultValue={resolution.height}>
@@ -179,7 +155,6 @@ const Handler = ({
                     <option onClick={onHeightClick}>900</option>
                 </select>
             </SelectWrapper>
-
             <SelectWrapper>
                 <span>Output Stride </span>
                 <select defaultValue={outputStride}>
@@ -188,7 +163,6 @@ const Handler = ({
                     <option onClick={onOutputStrideClick}>32</option>
                 </select>
             </SelectWrapper>
-
             <SelectWrapper>
                 <span>Keypoint Confidence </span>
                 <select defaultValue={keypointConfidence}>
@@ -203,7 +177,6 @@ const Handler = ({
                     <option onClick={onKeypointConfidenceClick}>0.9</option>
                 </select>
             </SelectWrapper>
-
             <SelectWrapper>
                 <span>Skeleton Confidence </span>
                 <select defaultValue={skeletonConfidence}>
@@ -218,7 +191,6 @@ const Handler = ({
                     <option onClick={onSkeletonConfidenceClick}>0.9</option>
                 </select>
             </SelectWrapper>
-
             <SelectWrapper>
                 <span>Playback Rate </span>
                 <select defaultValue={playbackRate}>
@@ -230,7 +202,6 @@ const Handler = ({
                     <option onClick={onPlaybackRateClick}>1</option>
                 </select>
             </SelectWrapper>
-
             {isStartCompare ? (
                 ""
             ) : (
