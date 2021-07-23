@@ -1,7 +1,14 @@
 import React, { Dispatch, SetStateAction } from "react";
 import styled from "styled-components";
 
-import { Button, Select, MenuItem, SelectProps } from "@material-ui/core";
+import {
+    Button,
+    Select,
+    MenuItem,
+    InputLabel,
+    SelectProps,
+} from "@material-ui/core";
+import SelectItem from "./Handler/SelectItem";
 
 interface IHandler {
     detectTime: number;
@@ -58,6 +65,11 @@ const Handler = ({
         console.log((e.target as HTMLOptionElement).value);
     };
 
+    const onDetectTimeChange = (e: React.FormEvent<SelectProps>) => {
+        const { value } = e.target as HTMLOptionElement;
+        setDetectTime(parseInt(value));
+    };
+
     const onDetectTimeClick = (e: React.MouseEvent<HTMLOptionElement>) => {
         const { value } = e.target as HTMLOptionElement;
         setDetectTime(parseInt(value));
@@ -110,33 +122,25 @@ const Handler = ({
     return (
         <Wrapper>
             <SelectWrapper>
+                <InputLabel htmlFor="architecture">Architecture</InputLabel>
                 <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
+                    labelId="architecture"
+                    id="architecture"
                     value={posenetArchitecture}
                     onChange={onArchitectureChange}
                 >
                     <MenuItem value={"MobileNetV1"}>MobileNetV1</MenuItem>
                     <MenuItem value={"ResNet50"}>ResNet50</MenuItem>
                 </Select>
-                {/* <span>posenet model </span>
-                <select defaultValue={posenetArchitecture}>
-                    <option
-                        onClick={() => {
-                            setPosenetArchitecture("MobileNetV1");
-                        }}
-                    >
-                        MobileNetV1
-                    </option>
-                    <option
-                        onClick={() => {
-                            setPosenetArchitecture("ResNet50");
-                        }}
-                    >
-                        ResNet50
-                    </option>
-                </select> */}
             </SelectWrapper>
+
+            <SelectItem
+                inputLabel="Detect Time"
+                id="detectTime"
+                value={detectTime}
+                onChange={onDetectTimeChange}
+                menuItems={[33, 50, 60, 70, 80, 90, 100, 200, 300, 400, 490]}
+            />
 
             <SelectWrapper>
                 <span>Detect Time </span>
@@ -251,6 +255,7 @@ const Wrapper = styled.section`
 
     padding: 10px 14px;
     background-color: #dce2f0;
+    /* background-color: red; */
 `;
 
 const SelectWrapper = styled.div`
