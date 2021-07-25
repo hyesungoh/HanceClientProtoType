@@ -72,12 +72,12 @@ const Handler = ({
         setDetectTime(parseInt(value));
     };
 
-    const onWidthClick = (e: React.MouseEvent<HTMLOptionElement>) => {
+    const onWidthChange = (e: React.FormEvent<SelectProps>) => {
         const { value } = e.target as HTMLOptionElement;
         setResolution({ ...resolution, width: parseInt(value) });
     };
 
-    const onHeightClick = (e: React.MouseEvent<HTMLOptionElement>) => {
+    const onHeightChange = (e: React.FormEvent<SelectProps>) => {
         const { value } = e.target as HTMLOptionElement;
         setResolution({ ...resolution, height: parseInt(value) });
     };
@@ -132,29 +132,23 @@ const Handler = ({
                 onChange={onDetectTimeChange}
                 menuItems={[33, 50, 60, 70, 80, 90, 100, 200, 300, 400, 490]}
             />
-            
-            <SelectWrapper>
-                <span>resolution - width </span>
-                <select defaultValue={resolution.width}>
-                    <option onClick={onWidthClick}>200</option>
-                    <option onClick={onWidthClick}>300</option>
-                    <option onClick={onWidthClick}>400</option>
-                    <option onClick={onWidthClick}>500</option>
-                    <option onClick={onWidthClick}>700</option>
-                    <option onClick={onWidthClick}>900</option>
-                </select>
-            </SelectWrapper>
-            <SelectWrapper>
-                <span>resolution - height </span>
-                <select defaultValue={resolution.height}>
-                    <option onClick={onHeightClick}>200</option>
-                    <option onClick={onHeightClick}>300</option>
-                    <option onClick={onHeightClick}>400</option>
-                    <option onClick={onHeightClick}>500</option>
-                    <option onClick={onHeightClick}>700</option>
-                    <option onClick={onHeightClick}>900</option>
-                </select>
-            </SelectWrapper>
+
+            <SelectItem
+                inputLabel="Resolution - Width"
+                id="resolutionWidth"
+                value={resolution.width}
+                onChange={onWidthChange}
+                menuItems={[200, 300, 400, 500, 600, 700, 800, 900]}
+            />
+
+            <SelectItem
+                inputLabel="Resolution - Height"
+                id="resolutionHeight"
+                value={resolution.height}
+                onChange={onHeightChange}
+                menuItems={[200, 300, 400, 500, 600, 700, 800, 900]}
+            />
+
             <SelectWrapper>
                 <span>Output Stride </span>
                 <select defaultValue={outputStride}>
@@ -163,6 +157,7 @@ const Handler = ({
                     <option onClick={onOutputStrideClick}>32</option>
                 </select>
             </SelectWrapper>
+            
             <SelectWrapper>
                 <span>Keypoint Confidence </span>
                 <select defaultValue={keypointConfidence}>
