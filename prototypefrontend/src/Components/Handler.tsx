@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction } from "react";
+import React, { Dispatch, SetStateAction, FormEvent } from "react";
 import styled from "styled-components";
 
 import {
@@ -61,28 +61,28 @@ const Handler = ({
     isStartCompare,
     setIsStartCompare,
 }: IHandler) => {
-    const onArchitectureChange = (e: React.FormEvent<SelectProps>) => {
+    const onArchitectureChange = (e: FormEvent<SelectProps>) => {
         const { value } = e.target as HTMLOptionElement;
         if (value === "ResNet50" || value === "MobileNetV1")
             setPosenetArchitecture(value);
     };
 
-    const onDetectTimeChange = (e: React.FormEvent<SelectProps>) => {
+    const onDetectTimeChange = (e: FormEvent<SelectProps>) => {
         const { value } = e.target as HTMLOptionElement;
         setDetectTime(parseInt(value));
     };
 
-    const onWidthChange = (e: React.FormEvent<SelectProps>) => {
+    const onWidthChange = (e: FormEvent<SelectProps>) => {
         const { value } = e.target as HTMLOptionElement;
         setResolution({ ...resolution, width: parseInt(value) });
     };
 
-    const onHeightChange = (e: React.FormEvent<SelectProps>) => {
+    const onHeightChange = (e: FormEvent<SelectProps>) => {
         const { value } = e.target as HTMLOptionElement;
         setResolution({ ...resolution, height: parseInt(value) });
     };
 
-    const onOutputStrideClick = (e: React.MouseEvent<HTMLOptionElement>) => {
+    const onOutputStrideChange = (e: FormEvent<SelectProps>) => {
         const { value } = e.target as HTMLOptionElement;
         const numValue = parseInt(value);
 
@@ -91,23 +91,18 @@ const Handler = ({
         }
     };
 
-    const onKeypointConfidenceClick = (
-        e: React.MouseEvent<HTMLOptionElement>
-    ) => {
+    const onKeypointConfidenceChange = (e: FormEvent<SelectProps>) => {
         const { value } = e.target as HTMLOptionElement;
         setKeyPointConfidence(parseFloat(value));
     };
 
-    const onSkeletonConfidenceClick = (
-        e: React.MouseEvent<HTMLOptionElement>
-    ) => {
+    const onSkeletonConfidenceChange = (e: FormEvent<SelectProps>) => {
         const { value } = e.target as HTMLOptionElement;
         setSkeletonConfidence(parseFloat(value));
     };
 
-    const onPlaybackRateClick = (e: React.MouseEvent<HTMLOptionElement>) => {
+    const onPlaybackRateChange = (e: FormEvent<SelectProps>) => {
         const { value } = e.target as HTMLOptionElement;
-        console.log(value);
         setPlaybackRate(parseFloat(value));
     };
 
@@ -149,54 +144,38 @@ const Handler = ({
                 menuItems={[200, 300, 400, 500, 600, 700, 800, 900]}
             />
 
-            <SelectWrapper>
-                <span>Output Stride </span>
-                <select defaultValue={outputStride}>
-                    <option onClick={onOutputStrideClick}>8</option>
-                    <option onClick={onOutputStrideClick}>16</option>
-                    <option onClick={onOutputStrideClick}>32</option>
-                </select>
-            </SelectWrapper>
-            
-            <SelectWrapper>
-                <span>Keypoint Confidence </span>
-                <select defaultValue={keypointConfidence}>
-                    <option onClick={onKeypointConfidenceClick}>0.1</option>
-                    <option onClick={onKeypointConfidenceClick}>0.2</option>
-                    <option onClick={onKeypointConfidenceClick}>0.3</option>
-                    <option onClick={onKeypointConfidenceClick}>0.4</option>
-                    <option onClick={onKeypointConfidenceClick}>0.5</option>
-                    <option onClick={onKeypointConfidenceClick}>0.6</option>
-                    <option onClick={onKeypointConfidenceClick}>0.7</option>
-                    <option onClick={onKeypointConfidenceClick}>0.8</option>
-                    <option onClick={onKeypointConfidenceClick}>0.9</option>
-                </select>
-            </SelectWrapper>
-            <SelectWrapper>
-                <span>Skeleton Confidence </span>
-                <select defaultValue={skeletonConfidence}>
-                    <option onClick={onSkeletonConfidenceClick}>0.1</option>
-                    <option onClick={onSkeletonConfidenceClick}>0.2</option>
-                    <option onClick={onSkeletonConfidenceClick}>0.3</option>
-                    <option onClick={onSkeletonConfidenceClick}>0.4</option>
-                    <option onClick={onSkeletonConfidenceClick}>0.5</option>
-                    <option onClick={onSkeletonConfidenceClick}>0.6</option>
-                    <option onClick={onSkeletonConfidenceClick}>0.7</option>
-                    <option onClick={onSkeletonConfidenceClick}>0.8</option>
-                    <option onClick={onSkeletonConfidenceClick}>0.9</option>
-                </select>
-            </SelectWrapper>
-            <SelectWrapper>
-                <span>Playback Rate </span>
-                <select defaultValue={playbackRate}>
-                    <option onClick={onPlaybackRateClick}>0.1</option>
-                    <option onClick={onPlaybackRateClick}>0.3</option>
-                    <option onClick={onPlaybackRateClick}>0.5</option>
-                    <option onClick={onPlaybackRateClick}>0.7</option>
-                    <option onClick={onPlaybackRateClick}>0.9</option>
-                    <option onClick={onPlaybackRateClick}>1</option>
-                </select>
-            </SelectWrapper>
+            <SelectItem
+                inputLabel="Output Stride"
+                id="outputStride"
+                value={outputStride}
+                onChange={onOutputStrideChange}
+                menuItems={[8, 16, 32]}
+            />
+
+            <SelectItem
+                inputLabel="Keypoint Confidence"
+                id="keypointConfidence"
+                value={keypointConfidence}
+                onChange={onKeypointConfidenceChange}
+                menuItems={[0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]}
+            />
+
+            <SelectItem
+                inputLabel="Skeleton Confidence"
+                id="skeletonConfidence"
+                value={skeletonConfidence}
+                onChange={onSkeletonConfidenceChange}
+                menuItems={[0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]}
+            />
+
+            <SelectItem
+                inputLabel="Playback Rate"
+                id="playbackRate"
+                value={playbackRate}
+                onChange={onPlaybackRateChange}
+                menuItems={[0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]}
+            />
+
             {isStartCompare ? (
                 ""
             ) : (
