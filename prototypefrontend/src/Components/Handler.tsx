@@ -198,9 +198,10 @@ const Wrapper = styled.section`
     top: 0;
     right: 12px;
 
+    width: 500px;
+
     padding: 10px 14px;
     background-color: #dce2f0;
-    /* background-color: red; */
 `;
 
 const SelectWrapper = styled.div`

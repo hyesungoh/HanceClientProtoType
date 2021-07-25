@@ -19,7 +19,7 @@ const SelectItem = ({
     return (
         <Wrapper>
             <InputLabel htmlFor={id}>{inputLabel}</InputLabel>
-            <Select labelId={id} id={id} value={value} onChange={onChange}>
+            <Select style={{width: "100%"}} labelId={id} id={id} value={value} onChange={onChange}>
                 {menuItems.map((menuItem, index) => (
                     <MenuItem key={index} value={menuItem}>
                         {menuItem}
