@@ -1,13 +1,7 @@
 import React, { Dispatch, SetStateAction, FormEvent } from "react";
 import styled from "styled-components";
 
-import {
-    Button,
-    Select,
-    MenuItem,
-    InputLabel,
-    SelectProps,
-} from "@material-ui/core";
+import { Button, SelectProps, SliderProps } from "@material-ui/core";
 import SelectItem from "./Handler/SelectItem";
 import SliderItem from "./Handler/SliderItem";
 
@@ -68,9 +62,11 @@ const Handler = ({
             setPosenetArchitecture(value);
     };
 
-    const onDetectTimeChange = (e: FormEvent<SelectProps>) => {
-        const { value } = e.target as HTMLOptionElement;
-        setDetectTime(parseInt(value));
+    const onDetectTimeChange = (
+        e: React.ChangeEvent<SliderProps>,
+        value: number | number[]
+    ) => {
+        setDetectTime(value as number);
     };
 
     const onWidthChange = (e: FormEvent<SelectProps>) => {
@@ -121,12 +117,15 @@ const Handler = ({
                 onChange={onArchitectureChange}
                 menuItems={["MobileNetV1", "ResNet50"]}
             />
-            <SelectItem
-                inputLabel="Detect Time"
+
+            <SliderItem
                 id="detectTime"
+                label="Detect Time"
                 value={detectTime}
-                onChange={onDetectTimeChange}
-                menuItems={[33, 50, 60, 70, 80, 90, 100, 200, 300, 400, 490]}
+                onSlideChange={onDetectTimeChange}
+                min={35}
+                max={1000}
+                step={50}
             />
 
             <SelectItem
@@ -176,9 +175,6 @@ const Handler = ({
                 onChange={onPlaybackRateChange}
                 menuItems={[0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]}
             />
-
-
-            <SliderItem />
 
             {isStartCompare ? (
                 ""

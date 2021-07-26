@@ -2,28 +2,41 @@ import React from "react";
 import styled from "styled-components";
 import { Slider, Typography, SliderProps } from "@material-ui/core";
 
-const SliderItem = () => {
-    const onSlideChange = (
+interface ISliderItem {
+    id: string;
+    label: string;
+    value: number;
+    min: number;
+    max: number;
+    step: number;
+    onSlideChange: (
         e: React.ChangeEvent<SliderProps>,
         value: number | number[]
-    ) => {
-        console.log(value);
-    };
+    ) => void;
+}
 
+const SliderItem = ({
+    id,
+    label,
+    value,
+    min,
+    max,
+    step,
+    onSlideChange,
+}: ISliderItem) => {
     return (
         <Wrapper>
-            <Typography id="discrete-slider" gutterBottom>
-                Temperature
+            <Typography id={id} gutterBottom>
+                {label}
             </Typography>
             <Slider
-                defaultValue={30}
-                // getAriaValueText={valuetext}
-                aria-labelledby="discrete-slider"
+                defaultValue={value}
+                aria-labelledby={id}
                 valueLabelDisplay="auto"
-                step={5}
+                step={step}
                 marks
-                min={10}
-                max={110}
+                min={min}
+                max={max}
                 onChangeCommitted={onSlideChange}
             />
         </Wrapper>
