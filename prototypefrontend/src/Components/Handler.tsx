@@ -183,6 +183,7 @@ const Handler = ({
                 ""
             ) : (
                 <Button
+                    color="primary"
                     variant="contained"
                     style={{ width: "100%" }}
                     onClick={onStartClick}
@@ -202,7 +203,7 @@ const Wrapper = styled.section`
     right: 12px;
 
     width: 300px;
-
     padding: 10px 14px;
     background-color: #dce2f0;
+    border-radius: 12px;
 `;

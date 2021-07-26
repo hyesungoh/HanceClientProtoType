@@ -19,7 +19,13 @@ const SelectItem = ({
     return (
         <Wrapper>
             <InputLabel htmlFor={id}>{inputLabel}</InputLabel>
-            <Select style={{width: "100%"}} labelId={id} id={id} value={value} onChange={onChange}>
+            <Select
+                style={{ width: "100%" }}
+                labelId={id}
+                id={id}
+                value={value}
+                onChange={onChange}
+            >
                 {menuItems.map((menuItem, index) => (
                     <MenuItem key={index} value={menuItem}>
                         {menuItem}
@@ -34,4 +40,5 @@ export default SelectItem;
 
 const Wrapper = styled.div`
     width: 100%;
+    margin-bottom: 12px;
 `;
