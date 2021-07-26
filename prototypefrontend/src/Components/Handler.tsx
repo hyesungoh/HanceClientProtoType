@@ -1,5 +1,6 @@
 import React, { Dispatch, SetStateAction, FormEvent } from "react";
 import styled from "styled-components";
+import _ from "lodash";
 
 import { Button, SelectProps, SliderProps } from "@material-ui/core";
 import SelectItem from "./Handler/SelectItem";
@@ -63,20 +64,17 @@ const Handler = ({
     };
 
     const onDetectTimeChange = (
-        e: React.ChangeEvent<SliderProps>,
+        _: React.ChangeEvent<SliderProps>,
         value: number | number[]
     ) => {
         setDetectTime(value as number);
     };
 
-    const onWidthChange = (e: FormEvent<SelectProps>) => {
-        const { value } = e.target as HTMLOptionElement;
-        setResolution({ ...resolution, width: parseInt(value) });
-    };
-
-    const onHeightChange = (e: FormEvent<SelectProps>) => {
-        const { value } = e.target as HTMLOptionElement;
-        setResolution({ ...resolution, height: parseInt(value) });
+    const onResolutionChange = (
+        _: React.ChangeEvent<SliderProps>,
+        value: number | number[]
+    ) => {
+        setResolution({ width: value as number, height: value as number });
     };
 
     const onOutputStrideChange = (e: FormEvent<SelectProps>) => {
@@ -118,6 +116,14 @@ const Handler = ({
                 menuItems={["MobileNetV1", "ResNet50"]}
             />
 
+            <SelectItem
+                inputLabel="Output Stride"
+                id="outputStride"
+                value={outputStride}
+                onChange={onOutputStrideChange}
+                menuItems={[8, 16, 32]}
+            />
+
             <SliderItem
                 id="detectTime"
                 label="Detect Time"
@@ -128,28 +134,14 @@ const Handler = ({
                 step={50}
             />
 
-            <SelectItem
-                inputLabel="Resolution - Width"
-                id="resolutionWidth"
+            <SliderItem
+                id="resolution"
+                label="Resolution"
                 value={resolution.width}
-                onChange={onWidthChange}
-                menuItems={[200, 300, 400, 500, 600, 700, 800, 900]}
-            />
-
-            <SelectItem
-                inputLabel="Resolution - Height"
-                id="resolutionHeight"
-                value={resolution.height}
-                onChange={onHeightChange}
-                menuItems={[200, 300, 400, 500, 600, 700, 800, 900]}
-            />
-
-            <SelectItem
-                inputLabel="Output Stride"
-                id="outputStride"
-                value={outputStride}
-                onChange={onOutputStrideChange}
-                menuItems={[8, 16, 32]}
+                onSlideChange={onResolutionChange}
+                min={200}
+                max={900}
+                step={100}
             />
 
             <SelectItem
