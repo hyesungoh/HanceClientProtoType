@@ -63,6 +63,15 @@ const Handler = ({
             setPosenetArchitecture(value);
     };
 
+    const onOutputStrideChange = (e: FormEvent<SelectProps>) => {
+        const { value } = e.target as HTMLOptionElement;
+        const numValue = parseInt(value);
+
+        if (numValue === (8 || 16 || 32)) {
+            setOutputStride(numValue);
+        }
+    };
+
     const onDetectTimeChange = (
         _: React.ChangeEvent<SliderProps>,
         value: number | number[]
@@ -77,28 +86,24 @@ const Handler = ({
         setResolution({ width: value as number, height: value as number });
     };
 
-    const onOutputStrideChange = (e: FormEvent<SelectProps>) => {
-        const { value } = e.target as HTMLOptionElement;
-        const numValue = parseInt(value);
-
-        if (numValue === (8 || 16 || 32)) {
-            setOutputStride(numValue);
-        }
+    const onKeypointConfidenceChange = (
+        _: React.ChangeEvent<SliderProps>,
+        value: number | number[]
+    ) => {
+        setKeyPointConfidence(value as number);
+    };
+    const onSkeletonConfidenceChange = (
+        _: React.ChangeEvent<SliderProps>,
+        value: number | number[]
+    ) => {
+        setSkeletonConfidence(value as number);
     };
 
-    const onKeypointConfidenceChange = (e: FormEvent<SelectProps>) => {
-        const { value } = e.target as HTMLOptionElement;
-        setKeyPointConfidence(parseFloat(value));
-    };
-
-    const onSkeletonConfidenceChange = (e: FormEvent<SelectProps>) => {
-        const { value } = e.target as HTMLOptionElement;
-        setSkeletonConfidence(parseFloat(value));
-    };
-
-    const onPlaybackRateChange = (e: FormEvent<SelectProps>) => {
-        const { value } = e.target as HTMLOptionElement;
-        setPlaybackRate(parseFloat(value));
+    const onPlaybackRateChange = (
+        _: React.ChangeEvent<SliderProps>,
+        value: number | number[]
+    ) => {
+        setPlaybackRate(value as number);
     };
 
     const onStartClick = () => {
@@ -144,28 +149,34 @@ const Handler = ({
                 step={100}
             />
 
-            <SelectItem
-                inputLabel="Keypoint Confidence"
+            <SliderItem
                 id="keypointConfidence"
+                label="Keypoint Confidence"
                 value={keypointConfidence}
-                onChange={onKeypointConfidenceChange}
-                menuItems={[0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]}
+                onSlideChange={onKeypointConfidenceChange}
+                min={0.1}
+                max={0.9}
+                step={0.1}
             />
 
-            <SelectItem
-                inputLabel="Skeleton Confidence"
+            <SliderItem
                 id="skeletonConfidence"
+                label="Skeleton Confidence"
                 value={skeletonConfidence}
-                onChange={onSkeletonConfidenceChange}
-                menuItems={[0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]}
+                onSlideChange={onSkeletonConfidenceChange}
+                min={0.1}
+                max={0.9}
+                step={0.1}
             />
 
-            <SelectItem
-                inputLabel="Playback Rate"
+            <SliderItem
                 id="playbackRate"
+                label="Playback Rate"
                 value={playbackRate}
-                onChange={onPlaybackRateChange}
-                menuItems={[0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]}
+                onSlideChange={onPlaybackRateChange}
+                min={0.1}
+                max={1}
+                step={0.1}
             />
 
             {isStartCompare ? (
@@ -190,28 +201,8 @@ const Wrapper = styled.section`
     top: 0;
     right: 12px;
 
-    width: 500px;
+    width: 300px;
 
     padding: 10px 14px;
     background-color: #dce2f0;
-`;
-
-const SelectWrapper = styled.div`
-    color: #50586c;
-`;
-
-const StartBtn = styled.button`
-    all: unset;
-    width: 100%;
-    height: 40px;
-    background-color: #50586c;
-    cursor: pointer;
-
-    text-align: center;
-    color: #dce2f0;
-
-    &:hover {
-        color: #50586c;
-        background-color: #dce2f0;
-    }
 `;
