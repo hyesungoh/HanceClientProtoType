@@ -66,8 +66,12 @@ const Handler = ({
         const { value } = e.target as HTMLOptionElement;
         const numValue = parseInt(value);
 
-        if (numValue === (8 || 16 || 32)) {
+        if (numValue === 8 || numValue === 16) {
             setOutputStride(numValue);
+        } else if (numValue === 32 && posenetArchitecture === "ResNet50") {
+            setOutputStride(numValue);
+        } else {
+            alert("지원하지 않는 항목입니다.");
         }
     };
 
@@ -91,6 +95,7 @@ const Handler = ({
     ) => {
         setKeyPointConfidence(value as number);
     };
+
     const onSkeletonConfidenceChange = (
         _: React.ChangeEvent<SliderProps>,
         value: number | number[]
