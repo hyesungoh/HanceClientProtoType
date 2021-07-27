@@ -1,6 +1,5 @@
 import React, { Dispatch, SetStateAction, FormEvent } from "react";
 import styled from "styled-components";
-import _ from "lodash";
 
 import { Button, SelectProps, SliderProps } from "@material-ui/core";
 import SelectItem from "./Handler/SelectItem";
@@ -133,7 +132,7 @@ const Handler = ({
                 id="detectTime"
                 label="Detect Time"
                 value={detectTime}
-                onSlideChange={onDetectTimeChange}
+                onChange={onDetectTimeChange}
                 min={35}
                 max={1000}
                 step={50}
@@ -143,7 +142,7 @@ const Handler = ({
                 id="resolution"
                 label="Resolution"
                 value={resolution.width}
-                onSlideChange={onResolutionChange}
+                onChange={onResolutionChange}
                 min={200}
                 max={900}
                 step={100}
@@ -153,7 +152,7 @@ const Handler = ({
                 id="keypointConfidence"
                 label="Keypoint Confidence"
                 value={keypointConfidence}
-                onSlideChange={onKeypointConfidenceChange}
+                onChange={onKeypointConfidenceChange}
                 min={0.1}
                 max={0.9}
                 step={0.1}
@@ -163,7 +162,7 @@ const Handler = ({
                 id="skeletonConfidence"
                 label="Skeleton Confidence"
                 value={skeletonConfidence}
-                onSlideChange={onSkeletonConfidenceChange}
+                onChange={onSkeletonConfidenceChange}
                 min={0.1}
                 max={0.9}
                 step={0.1}
@@ -173,7 +172,7 @@ const Handler = ({
                 id="playbackRate"
                 label="Playback Rate"
                 value={playbackRate}
-                onSlideChange={onPlaybackRateChange}
+                onChange={onPlaybackRateChange}
                 min={0.1}
                 max={1}
                 step={0.1}
@@ -199,7 +198,7 @@ export default Handler;
 
 const Wrapper = styled.section`
     position: absolute;
-    top: 0;
+    top: 12pxs;
     right: 12px;
 
     width: 300px;
