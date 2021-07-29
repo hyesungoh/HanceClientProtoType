@@ -1,12 +1,7 @@
-import React from "react";
-import WebcamWithPosenet from "Components/WebcamWithPosenet";
+import Router from "Router";
 
 function App() {
-    return (
-        <>
-            <WebcamWithPosenet />
-        </>
-    );
+    return <Router />;
 }
 
 export default App;

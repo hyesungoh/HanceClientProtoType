@@ -2,14 +2,14 @@ import { useRef, useState, useEffect } from "react";
 import styled, { CSSProperties } from "styled-components";
 import Webcam from "react-webcam";
 
-import * as tf from "@tensorflow/tfjs";
+// import * as tf from "@tensorflow/tfjs";
 import * as posenet from "@tensorflow-models/posenet";
 
 import useCoaching from "Hooks/useCoaching";
 import { drawKeypoints, drawSkeleton } from "Utils/draw";
-import Handler from "./Handler";
-import Video from "./Video";
-import Score from "./Score";
+import Handler from "Components/Handler";
+import Video from "Components/Video";
+import Score from "Components/Score";
 
 interface IDrawResult {
     pose: posenet.Pose;
