@@ -8,7 +8,11 @@ const Home = () => {
         <Wrapper>
             <Button
                 size="large"
-                style={{ fontSize: "10rem", color: "#50586C" }}
+                style={{
+                    fontSize: "10rem",
+                    color: "#50586C",
+                    marginBottom: "12px",
+                }}
             >
                 Wavy
             </Button>
@@ -16,7 +20,9 @@ const Home = () => {
                 <Link to="/learning">
                     <Button variant="contained">배우기</Button>
                 </Link>
-                <Button variant="contained">분석</Button>
+                <Link to="/analysis">
+                    <Button variant="contained">분석</Button>
+                </Link>
             </BtnWrapper>
         </Wrapper>
     );
