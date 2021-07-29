@@ -2,8 +2,8 @@ import React, { Dispatch, SetStateAction, FormEvent } from "react";
 import styled from "styled-components";
 
 import { Button, SelectProps, SliderProps } from "@material-ui/core";
-import SelectItem from "./Handler/SelectItem";
-import SliderItem from "./Handler/SliderItem";
+import SelectItem from "Components/Learning/SelectItem";
+import SliderItem from "Components/Learning/SliderItem";
 
 interface IHandler {
     detectTime: number;

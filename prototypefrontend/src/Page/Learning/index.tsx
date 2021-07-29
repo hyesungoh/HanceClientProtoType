@@ -7,9 +7,9 @@ import * as posenet from "@tensorflow-models/posenet";
 
 import useCoaching from "Hooks/useCoaching";
 import { drawKeypoints, drawSkeleton } from "Utils/draw";
-import Handler from "Components/Handler";
-import Video from "Components/Video";
-import Score from "Components/Score";
+import Handler from "Components/Learning/Handler";
+import Video from "Components/Learning/Video";
+import Score from "Components/Learning/Score";
 
 interface IDrawResult {
     pose: posenet.Pose;
