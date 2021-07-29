@@ -4,9 +4,23 @@ import ReactPlayer from "react-player";
 
 import weride2VideoSrc from "Static/Video/weride2.mp4";
 import Controllers from "Components/Analysis/Controller";
+import { useState } from "react";
 
 const Analysis = () => {
     const youtubeRef = useRef<ReactPlayer>(null);
+    const userVideoRef = useRef<ReactPlayer>(null);
+
+    const [currentTime, setCurrentTime] = useState<number>(0);
+
+    const onProgress = (state: {
+        played: number;
+        playedSeconds: number;
+        loaded: number;
+        loadedSeconds: number;
+    }) => {
+        setCurrentTime(state.playedSeconds);
+    };
+
     return (
         <Wrapper>
             <VideoSection>
@@ -17,14 +31,12 @@ const Analysis = () => {
                         playing
                         progressInterval={200}
                         volume={0}
-                        // onProgress={(e) => {
-                        //     console.log(e);
-                        // }}
+                        onProgress={onProgress}
                     />
                 </VideoWrapper>
                 <VideoWrapper>
                     <ReactPlayer
-                        ref={youtubeRef}
+                        ref={userVideoRef}
                         url={weride2VideoSrc}
                         playing
                         progressInterval={200}
@@ -37,7 +49,13 @@ const Analysis = () => {
             </VideoSection>
 
             <ControllerWrapper>
-                <Controllers />
+                <Controllers
+                    currentTime={currentTime}
+                    setCurrentTime={setCurrentTime}
+                    endTime={18}
+                    youtubeRef={youtubeRef}
+                    userVideoRef={userVideoRef}
+                />
             </ControllerWrapper>
         </Wrapper>
     );
