@@ -129,12 +129,11 @@ const VideoWrapper = styled.div<{ following?: boolean }>`
     overflow: hidden;
 
     & > .before {
-        transition: transform 0.5s;
+        transition: transform 0.5s, opacity 0.5s;
 
-        transform: ${({ following }) => {
-            console.log(following);
-            return following ? "scale(0.5)" : "scale(1)";
-        }};
+        opacity: ${({ following }) => (following ? 0.6 : 1)};
+        transform: ${({ following }) =>
+            following ? "scale(0.5)" : "scale(1)"};
         transform-origin: left bottom;
     }
     & > * {
