@@ -1,18 +1,19 @@
-import { useRef } from "react";
-import { useState } from "react";
 import Webcam from "react-webcam";
-import styled, { CSSProperties } from "styled-components";
 import ReactPlayer from "react-player";
+import { useRef, useState } from "react";
 import { Button } from "@material-ui/core";
+import styled, { CSSProperties } from "styled-components";
 
 import Controllers from "Components/Analysis/Controller";
 import weride2VideoSrc from "Static/Video/weride2.mp4";
+import { unstable_batchedUpdates } from "react-dom";
+import { scaleAndFlipPoses } from "@tensorflow-models/posenet";
 
 const Analysis = () => {
     const youtubeRef = useRef<ReactPlayer>(null);
     const userVideoRef = useRef<ReactPlayer>(null);
 
-    const [playing, setPlaying] = useState<boolean>(true);
+    const [playing, setPlaying] = useState<boolean>(false);
     const [following, setFollowing] = useState<boolean>(false);
     const [currentTime, setCurrentTime] = useState<number>(0);
 
@@ -32,7 +33,7 @@ const Analysis = () => {
         width: "100%",
         height: "100%",
         objectFit: "cover",
-        opacity: "0.5",
+        // opacity: "0.5",
     };
 
     return (
@@ -52,22 +53,23 @@ const Analysis = () => {
                                     showinfo: 0,
                                     controls: 0,
                                     disablekb: 1,
-                                    modestbranding: 1
+                                    modestbranding: 1,
                                 },
                             },
                         }}
                     />
-                    {following && <Webcam style={WebcamStyle} />}2
+                    {/* {following && <Webcam style={WebcamStyle} />}2 */}
                 </VideoWrapper>
-                <VideoWrapper>
+                <VideoWrapper following={following}>
+                    {following && <Webcam style={WebcamStyle} />}
                     <ReactPlayer
                         ref={userVideoRef}
                         url={weride2VideoSrc}
                         playing={playing}
                         progressInterval={200}
                         volume={0}
+                        className="before"
                     />
-                    {following && <Webcam style={WebcamStyle} />}
                 </VideoWrapper>
             </VideoSection>
 
@@ -120,12 +122,21 @@ const VideoSection = styled.section`
     justify-content: center;
 `;
 
-const VideoWrapper = styled.div`
+const VideoWrapper = styled.div<{ following?: boolean }>`
     position: relative;
     width: 400px;
     height: 80vh;
     overflow: hidden;
 
+    & > .before {
+        transition: transform 0.5s;
+
+        transform: ${({ following }) => {
+            console.log(following);
+            return following ? "scale(0.5)" : "scale(1)";
+        }};
+        transform-origin: left bottom;
+    }
     & > * {
         position: absolute;
         top: 0;
