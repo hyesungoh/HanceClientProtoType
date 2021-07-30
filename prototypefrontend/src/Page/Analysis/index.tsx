@@ -1,15 +1,19 @@
 import { useRef } from "react";
-import styled from "styled-components";
-import ReactPlayer from "react-player";
-
-import weride2VideoSrc from "Static/Video/weride2.mp4";
-import Controllers from "Components/Analysis/Controller";
 import { useState } from "react";
+import Webcam from "react-webcam";
+import styled, { CSSProperties } from "styled-components";
+import ReactPlayer from "react-player";
+import { Button } from "@material-ui/core";
+
+import Controllers from "Components/Analysis/Controller";
+import weride2VideoSrc from "Static/Video/weride2.mp4";
 
 const Analysis = () => {
     const youtubeRef = useRef<ReactPlayer>(null);
     const userVideoRef = useRef<ReactPlayer>(null);
 
+    const [playing, setPlaying] = useState<boolean>(true);
+    const [following, setFollowing] = useState<boolean>(false);
     const [currentTime, setCurrentTime] = useState<number>(0);
 
     const onProgress = (state: {
@@ -21,6 +25,16 @@ const Analysis = () => {
         setCurrentTime(state.playedSeconds);
     };
 
+    const WebcamStyle: CSSProperties = {
+        position: "absolute",
+        top: "0",
+        left: "0",
+        width: "100%",
+        height: "100%",
+        objectFit: "cover",
+        opacity: "0.5",
+    };
+
     return (
         <Wrapper>
             <VideoSection>
@@ -28,23 +42,32 @@ const Analysis = () => {
                     <ReactPlayer
                         ref={youtubeRef}
                         url="https://www.youtube.com/watch?v=SZ0UU3Ud3m0"
-                        playing
+                        playing={playing}
                         progressInterval={200}
                         volume={0}
                         onProgress={onProgress}
+                        config={{
+                            youtube: {
+                                playerVars: {
+                                    showinfo: 0,
+                                    controls: 0,
+                                    disablekb: 1,
+                                    modestbranding: 1
+                                },
+                            },
+                        }}
                     />
+                    {following && <Webcam style={WebcamStyle} />}2
                 </VideoWrapper>
                 <VideoWrapper>
                     <ReactPlayer
                         ref={userVideoRef}
                         url={weride2VideoSrc}
-                        playing
+                        playing={playing}
                         progressInterval={200}
                         volume={0}
-                        // onProgress={(e) => {
-                        //     console.log(e);
-                        // }}
                     />
+                    {following && <Webcam style={WebcamStyle} />}
                 </VideoWrapper>
             </VideoSection>
 
@@ -56,6 +79,25 @@ const Analysis = () => {
                     youtubeRef={youtubeRef}
                     userVideoRef={userVideoRef}
                 />
+
+                <ControllerBtnWrapper>
+                    <Button
+                        variant="contained"
+                        onClick={() => {
+                            setPlaying(!playing);
+                        }}
+                    >
+                        Start/Stop
+                    </Button>
+                    <Button
+                        variant="contained"
+                        onClick={() => {
+                            setFollowing(!following);
+                        }}
+                    >
+                        따라하기
+                    </Button>
+                </ControllerBtnWrapper>
             </ControllerWrapper>
         </Wrapper>
     );
@@ -80,12 +122,14 @@ const VideoSection = styled.section`
 
 const VideoWrapper = styled.div`
     position: relative;
-    width: 500px;
+    width: 400px;
     height: 80vh;
     overflow: hidden;
 
     & > * {
         position: absolute;
+        top: 0;
+        left: 0;
         width: 100% !important;
         height: 100% !important;
     }
@@ -93,4 +137,12 @@ const VideoWrapper = styled.div`
 
 const ControllerWrapper = styled.div`
     width: 80vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+`;
+
+const ControllerBtnWrapper = styled.div`
+    display: flex;
+    gap: 12px;
 `;
