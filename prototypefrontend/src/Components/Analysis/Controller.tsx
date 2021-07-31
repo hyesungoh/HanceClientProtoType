@@ -20,6 +20,11 @@ interface IControllers {
     videoUrl: string;
 }
 
+interface IThumbnail {
+    isShowing: boolean;
+    pos: { x: number; y: number };
+}
+
 const Controllers = ({
     currentTime,
     setCurrentTime,
@@ -29,16 +34,22 @@ const Controllers = ({
     videoUrl,
 }: IControllers) => {
     const ThumbnailVideoRef = useRef<ReactPlayer>(null);
-    const [isThumbnailShow, setIsThumbnailShow] = useState<boolean>(false);
+    const [thumbnailConfig, setThumbnailConfig] = useState<IThumbnail>({
+        isShowing: false,
+        pos: { x: 0, y: 0 },
+    });
 
     const onChange = (
         e: React.ChangeEvent<SliderProps>,
         value: number | number[]
     ) => {
+        const mouseEvent = e as MouseEvent;
         setCurrentTime(value as number);
-        setIsThumbnailShow(true);
+        setThumbnailConfig({
+            isShowing: true,
+            pos: { x: mouseEvent.pageX, y: mouseEvent.pageY },
+        });
         ThumbnailVideoRef.current?.seekTo(value as number);
-
     };
 
     const onChangeCommitted = (
@@ -56,13 +67,18 @@ const Controllers = ({
     };
 
     const onMouseLeave = () => {
-        setIsThumbnailShow(false);
+        setThumbnailConfig({ ...thumbnailConfig, isShowing: false });
     };
 
     return (
         <ControllerWrapper>
-            <ThumbnailWrapper isThumbnailShow={isThumbnailShow}>
-                <ReactPlayer url={videoUrl} ref={ThumbnailVideoRef} playing={false} light={true}/>
+            <ThumbnailWrapper thumbnailConfig={thumbnailConfig}>
+                <ReactPlayer
+                    url={videoUrl}
+                    ref={ThumbnailVideoRef}
+                    playing={true}
+                    volume={0}
+                />
             </ThumbnailWrapper>
 
             <Slider
@@ -91,14 +107,15 @@ const ControllerWrapper = styled.div`
     align-items: center;
 `;
 
-const ThumbnailWrapper = styled.div<{ isThumbnailShow: boolean }>`
+const ThumbnailWrapper = styled.div<{ thumbnailConfig: IThumbnail }>`
     position: absolute;
-    top: -120%;
-    left: 0;
+    top: -110%;
+    left: calc(${({ thumbnailConfig }) => thumbnailConfig.pos.x}px - 30px);
     width: 100px;
     height: 150px;
 
-    opacity: ${({ isThumbnailShow }) => (isThumbnailShow ? "1" : "0")};
+    opacity: ${({ thumbnailConfig }) =>
+        thumbnailConfig.isShowing ? "1" : "0"};
 
     & > * {
         width: 100% !important;
