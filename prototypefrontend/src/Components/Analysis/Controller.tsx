@@ -23,6 +23,7 @@ interface IControllers {
 interface IThumbnail {
     isShowing: boolean;
     pos: { x: number; y: number };
+    isPlaying: boolean;
 }
 
 const Controllers = ({
@@ -37,6 +38,7 @@ const Controllers = ({
     const [thumbnailConfig, setThumbnailConfig] = useState<IThumbnail>({
         isShowing: false,
         pos: { x: 0, y: 0 },
+        isPlaying: true,
     });
 
     const onChange = (
@@ -47,6 +49,7 @@ const Controllers = ({
         setCurrentTime(value as number);
         setThumbnailConfig({
             isShowing: true,
+            isPlaying: false,
             pos: { x: mouseEvent.pageX, y: mouseEvent.pageY },
         });
         ThumbnailVideoRef.current?.seekTo(value as number);
@@ -67,7 +70,11 @@ const Controllers = ({
     };
 
     const onMouseLeave = () => {
-        setThumbnailConfig({ ...thumbnailConfig, isShowing: false });
+        setThumbnailConfig({
+            ...thumbnailConfig,
+            isShowing: false,
+            isPlaying: true,
+        });
     };
 
     return (
@@ -76,7 +83,7 @@ const Controllers = ({
                 <ReactPlayer
                     url={videoUrl}
                     ref={ThumbnailVideoRef}
-                    playing={true}
+                    playing={thumbnailConfig.isPlaying}
                     volume={0}
                 />
             </ThumbnailWrapper>
