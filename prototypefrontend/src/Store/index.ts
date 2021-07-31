@@ -14,3 +14,8 @@ export const compareIsPassedState = atom<boolean>({
     default: false,
     key: "compareIsPassedState",
 });
+
+export const isStartCompareState = atom<boolean>({
+    default: false,
+    key: "isStartCompareState",
+});
