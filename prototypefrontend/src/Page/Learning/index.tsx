@@ -12,6 +12,7 @@ import Video from "Components/Learning/Video";
 import Score from "Components/Learning/Score";
 import { useRecoilState } from "recoil";
 import { isStartCompareState } from "Store";
+import useRecord from "Hooks/useRecord";
 
 interface IDrawResult {
     pose: posenet.Pose;
@@ -45,7 +46,9 @@ const WebcamWithPosenet = () => {
     const webcamRef = useRef<Webcam>(null);
     const canvasRef = useRef(null);
 
+    // custom hook
     const { stackingPose } = useCoaching();
+    const {} = useRecord({ webcamRef: webcamRef });
 
     const WebcamStyle: CSSProperties = {
         position: "absolute",
