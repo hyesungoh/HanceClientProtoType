@@ -38,8 +38,14 @@ npm start
 
 got together in the software maestro 12th
 
+<div align="left">
+
  <img src="https://avatars.githubusercontent.com/u/20268101?v=4" width="70px" style="border-radius:50%" />
+
  <img src="https://avatars.githubusercontent.com/u/26461307?v=4" width="70px" style="border-radius:50%" />
+
  <img src="https://avatars.githubusercontent.com/u/61102178?v=4" width="70px" style="border-radius:50%" />
+
+</div>
 
 AI : [haeseoklee](https://github.com/haeseoklee) • FE [hyesungoh](https://github.com/hyesungoh) • BE [Yeonwu](https://github.com/Yeonwu)
