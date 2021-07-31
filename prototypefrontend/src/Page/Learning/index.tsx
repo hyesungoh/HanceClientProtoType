@@ -10,6 +10,8 @@ import { drawKeypoints, drawSkeleton } from "Utils/draw";
 import Handler from "Components/Learning/Handler";
 import Video from "Components/Learning/Video";
 import Score from "Components/Learning/Score";
+import { useRecoilState } from "recoil";
+import { isStartCompareState } from "Store";
 
 interface IDrawResult {
     pose: posenet.Pose;
@@ -19,6 +21,8 @@ interface IDrawResult {
 }
 
 const WebcamWithPosenet = () => {
+    const [isStartCompare, setIsStartCompare] =
+        useRecoilState(isStartCompareState);
     const [isLoading, setIsLoading] = useState<boolean>(true);
 
     // for posenet model
@@ -41,7 +45,7 @@ const WebcamWithPosenet = () => {
     const webcamRef = useRef<Webcam>(null);
     const canvasRef = useRef(null);
 
-    const { stackingPose, isStartCompare, setIsStartCompare } = useCoaching();
+    const { stackingPose } = useCoaching();
 
     const WebcamStyle: CSSProperties = {
         position: "absolute",
@@ -161,8 +165,6 @@ const WebcamWithPosenet = () => {
                 setKeyPointConfidence={setKeypointConfidence}
                 skeletonConfidence={skeletonConfidence}
                 setSkeletonConfidence={setSkeletonConfidence}
-                isStartCompare={isStartCompare}
-                setIsStartCompare={setIsStartCompare}
             />
 
             <Score />

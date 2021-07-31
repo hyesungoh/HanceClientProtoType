@@ -5,8 +5,12 @@ import l2noramlization from "Utils/Algorithm/preprocessing";
 import compareFrames from "Utils/Algorithm/comparison";
 import serverData from "Static/Data/serverData";
 import { data as weride2Data } from "Static/Data/weride2Data";
-import { useSetRecoilState } from "recoil";
-import { compareCurrentMeanScoreState, compareIsPassedState } from "Store";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import {
+    compareCurrentMeanScoreState,
+    compareIsPassedState,
+    isStartCompareState,
+} from "Store";
 interface IComparePose {
     frameId: number;
     keypoints: number[];
@@ -14,8 +18,9 @@ interface IComparePose {
 }
 
 const useCoaching = () => {
-    const [isStartCompare, setIsStartCompare] = useState<boolean>(false);
-
+    // const [isStartCompare, setIsStartCompare] = useState<boolean>(false);
+    const [isStartCompare, setIsStartCompare] =
+        useRecoilState(isStartCompareState);
     const setMeanScore = useSetRecoilState(compareCurrentMeanScoreState);
     const setIsPassed = useSetRecoilState(compareIsPassedState);
 
@@ -113,7 +118,7 @@ const useCoaching = () => {
     //     [isStartCompare]
     // );
 
-    return { stackingPose, isStartCompare, setIsStartCompare };
+    return { stackingPose };
 };
 
 export default useCoaching;

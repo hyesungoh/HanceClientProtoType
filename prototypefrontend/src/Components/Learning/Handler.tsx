@@ -4,6 +4,8 @@ import styled from "styled-components";
 import { Button, SelectProps, SliderProps } from "@material-ui/core";
 import SelectItem from "Components/Learning/SelectItem";
 import SliderItem from "Components/Learning/SliderItem";
+import { useRecoilState } from "recoil";
+import { isStartCompareState } from "Store";
 
 interface IHandler {
     detectTime: number;
@@ -31,9 +33,6 @@ interface IHandler {
 
     skeletonConfidence: number;
     setSkeletonConfidence: Dispatch<SetStateAction<number>>;
-
-    isStartCompare: boolean;
-    setIsStartCompare: Dispatch<SetStateAction<boolean>>;
 }
 
 const Handler = ({
@@ -53,9 +52,10 @@ const Handler = ({
     setKeyPointConfidence,
     skeletonConfidence,
     setSkeletonConfidence,
-    isStartCompare,
-    setIsStartCompare,
 }: IHandler) => {
+    const [isStartCompare, setIsStartCompare] =
+        useRecoilState(isStartCompareState);
+
     const onArchitectureChange = (e: FormEvent<SelectProps>) => {
         const { value } = e.target as HTMLOptionElement;
         if (value === "ResNet50" || value === "MobileNetV1")
