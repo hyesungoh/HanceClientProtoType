@@ -1,4 +1,5 @@
 import ReactPlayer from "react-player";
+import styled from "styled-components";
 import { Slider, SliderProps } from "@material-ui/core";
 
 import { SetStateAction, Dispatch, RefObject } from "react";
@@ -40,18 +41,43 @@ const Controllers = ({
         return value.toFixed(2);
     };
 
+    const onMouseEnter = () => {
+        console.log("enter");
+    };
+
+    const onMouseMove = () => {
+        console.log("move");
+    }
+
+    const onMouseLeave = () => {
+        console.log("leave");
+    };
+
     return (
-        <Slider
-            min={0}
-            max={endTime}
-            step={0.1}
-            value={currentTime}
-            onChange={onChange}
-            onChangeCommitted={onChangeCommitted}
-            valueLabelDisplay={"on"}
-            valueLabelFormat={valueLabelFormat}
-        />
+        <ControllerWrapper>
+            <Slider
+                min={0}
+                max={endTime}
+                step={0.1}
+                value={currentTime}
+                onChange={onChange}
+                onChangeCommitted={onChangeCommitted}
+                valueLabelDisplay={"on"}
+                valueLabelFormat={valueLabelFormat}
+                onMouseEnter={onMouseEnter}
+                onMouseMove={onMouseMove}
+                onMouseLeave={onMouseLeave}
+            />
+        </ControllerWrapper>
     );
 };
 
 export default Controllers;
+
+const ControllerWrapper = styled.div`
+    width: 100%;
+    height: 100px;
+
+    display: flex;
+    align-items: center;
+`;

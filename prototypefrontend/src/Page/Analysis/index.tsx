@@ -6,8 +6,6 @@ import styled, { CSSProperties } from "styled-components";
 
 import Controllers from "Components/Analysis/Controller";
 import weride2VideoSrc from "Static/Video/weride2.mp4";
-import { unstable_batchedUpdates } from "react-dom";
-import { scaleAndFlipPoses } from "@tensorflow-models/posenet";
 
 const Analysis = () => {
     const youtubeRef = useRef<ReactPlayer>(null);
