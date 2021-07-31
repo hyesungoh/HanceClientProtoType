@@ -2,7 +2,14 @@ import ReactPlayer from "react-player";
 import styled from "styled-components";
 import { Slider, SliderProps } from "@material-ui/core";
 
-import { SetStateAction, Dispatch, RefObject } from "react";
+import {
+    SetStateAction,
+    Dispatch,
+    RefObject,
+    MouseEvent,
+    useState,
+} from "react";
+import { useRef } from "react";
 
 interface IControllers {
     currentTime: number;
@@ -10,6 +17,7 @@ interface IControllers {
     endTime: number;
     youtubeRef: RefObject<ReactPlayer>;
     userVideoRef: RefObject<ReactPlayer>;
+    videoUrl: string;
 }
 
 const Controllers = ({
@@ -18,13 +26,19 @@ const Controllers = ({
     endTime,
     youtubeRef,
     userVideoRef,
+    videoUrl,
 }: IControllers) => {
-    // const [tempValue, setTempValue] = useState<number>(0);
+    const ThumbnailVideoRef = useRef<ReactPlayer>(null);
+    const [isThumbnailShow, setIsThumbnailShow] = useState<boolean>(false);
+
     const onChange = (
-        _: React.ChangeEvent<SliderProps>,
+        e: React.ChangeEvent<SliderProps>,
         value: number | number[]
     ) => {
         setCurrentTime(value as number);
+        setIsThumbnailShow(true);
+        ThumbnailVideoRef.current?.seekTo(value as number);
+
     };
 
     const onChangeCommitted = (
@@ -41,20 +55,16 @@ const Controllers = ({
         return value.toFixed(2);
     };
 
-    const onMouseEnter = () => {
-        console.log("enter");
-    };
-
-    const onMouseMove = () => {
-        console.log("move");
-    }
-
     const onMouseLeave = () => {
-        console.log("leave");
+        setIsThumbnailShow(false);
     };
 
     return (
         <ControllerWrapper>
+            <ThumbnailWrapper isThumbnailShow={isThumbnailShow}>
+                <ReactPlayer url={videoUrl} ref={ThumbnailVideoRef} playing={false} light={true}/>
+            </ThumbnailWrapper>
+
             <Slider
                 min={0}
                 max={endTime}
@@ -64,8 +74,6 @@ const Controllers = ({
                 onChangeCommitted={onChangeCommitted}
                 valueLabelDisplay={"on"}
                 valueLabelFormat={valueLabelFormat}
-                onMouseEnter={onMouseEnter}
-                onMouseMove={onMouseMove}
                 onMouseLeave={onMouseLeave}
             />
         </ControllerWrapper>
@@ -75,9 +83,25 @@ const Controllers = ({
 export default Controllers;
 
 const ControllerWrapper = styled.div`
+    position: relative;
     width: 100%;
     height: 100px;
 
     display: flex;
     align-items: center;
+`;
+
+const ThumbnailWrapper = styled.div<{ isThumbnailShow: boolean }>`
+    position: absolute;
+    top: -120%;
+    left: 0;
+    width: 100px;
+    height: 150px;
+
+    opacity: ${({ isThumbnailShow }) => (isThumbnailShow ? "1" : "0")};
+
+    & > * {
+        width: 100% !important;
+        height: 100% !important;
+    }
 `;

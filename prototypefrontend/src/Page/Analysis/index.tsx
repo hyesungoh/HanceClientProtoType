@@ -67,6 +67,7 @@ const Analysis = () => {
                         progressInterval={200}
                         volume={0}
                         className="before"
+                        
                     />
                 </VideoWrapper>
             </VideoSection>
@@ -78,6 +79,7 @@ const Analysis = () => {
                     endTime={18}
                     youtubeRef={youtubeRef}
                     userVideoRef={userVideoRef}
+                    videoUrl="https://www.youtube.com/watch?v=SZ0UU3Ud3m0"
                 />
 
                 <ControllerBtnWrapper>
