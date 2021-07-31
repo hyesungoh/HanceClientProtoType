@@ -127,7 +127,15 @@ const WebcamWithPosenet = () => {
         };
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [posenetArchitecture, outputStride, detectTime, isStartCompare]);
+    }, [
+        posenetArchitecture,
+        outputStride,
+        detectTime,
+        isStartCompare,
+        resolution,
+        keypointConfidence,
+        skeletonConfidence,
+    ]);
 
     if (isLoading) return <div>LOADING ... </div>;
 
