@@ -24,6 +24,7 @@ Wavy Client Prototype </h1>
 -   @material-ui/core@4.12.2
 -   @tensorflow/tfjs@3.7.0
 -   @tensorflow-models/posenet@2.2.2
+-   @types/dom-mediacapture-record@1.0.10
 
 ## Getting Started
 
