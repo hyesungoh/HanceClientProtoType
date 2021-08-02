@@ -13,6 +13,7 @@ import Score from "Components/Learning/Score";
 import { useRecoilState } from "recoil";
 import { isStartCompareState } from "Store";
 import useRecord from "Hooks/useRecord";
+import Gauge from "Components/Learning/Gauge";
 
 interface IDrawResult {
     pose: posenet.Pose;
@@ -27,7 +28,7 @@ const WebcamWithPosenet = () => {
     const [isLoading, setIsLoading] = useState<boolean>(true);
 
     // for posenet model
-    const [detectTime, setDetectTime] = useState<number>(60);
+    const [detectTime, setDetectTime] = useState<number>(500);
     const [posenetArchitecture, setPosenetArchitecture] = useState<
         "ResNet50" | "MobileNetV1"
     >("MobileNetV1");
@@ -144,7 +145,7 @@ const WebcamWithPosenet = () => {
 
     return (
         <Wrapper>
-            {/* <WebcamWrapper>
+            <WebcamWrapper>
                 <Video
                     isPlaying={isPlaying}
                     setIsPlaying={setIsPlaying}
@@ -154,10 +155,12 @@ const WebcamWithPosenet = () => {
                 />
             </WebcamWrapper>
 
+            <Gauge />
+
             <WebcamWrapper>
                 <Webcam ref={webcamRef} style={WebcamStyle} />
                 <canvas ref={canvasRef} style={WebcamStyle} />
-            </WebcamWrapper> */}
+            </WebcamWrapper>
 
             <Handler
                 detectTime={detectTime}
