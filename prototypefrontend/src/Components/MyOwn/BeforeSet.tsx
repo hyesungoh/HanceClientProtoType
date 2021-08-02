@@ -22,7 +22,7 @@ const BeforeSet = ({ setIsSet, setVideoUrl }: IBeforeSet) => {
                 <TextField
                     inputRef={textRef}
                     id="outlined-basic"
-                    label="Outlined"
+                    label="Youtube video url"
                     variant="outlined"
                     fullWidth={true}
                 />
