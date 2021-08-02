@@ -7,11 +7,11 @@ Wavy Client Prototype </h1>
 <p>testing real-time pose detection and similarity evaluation</p>
 </div>
 
-<p align="center">
+<div align="center">
   <a href="#packages">Packages</a> •
   <a href="#getting-started">Getting Started</a> •
   <a href="#developer">Developer</a>
-</p>
+</div>
 
 ## Packages
 
