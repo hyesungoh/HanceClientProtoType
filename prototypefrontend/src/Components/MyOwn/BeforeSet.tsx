@@ -1,20 +1,35 @@
 import styled from "styled-components";
-import { Button, TextField } from "@material-ui/core";
+import { Button, TextField, TextFieldProps } from "@material-ui/core";
+import React from "react";
+import { useRef } from "react";
 
-interface IBeforeSet {}
+interface IBeforeSet {
+    setIsSet: React.Dispatch<React.SetStateAction<boolean>>;
+    setVideoUrl: React.Dispatch<React.SetStateAction<string>>;
+}
 
-const BeforeSet = () => {
+const BeforeSet = ({ setIsSet, setVideoUrl }: IBeforeSet) => {
+    const textRef = useRef<HTMLInputElement>(null);
+
+    const onSubmit = () => {
+        setVideoUrl(textRef.current?.value as string);
+        setIsSet(true);
+    };
+
     return (
         <Wrapper>
             <BtnWrapper>
                 <TextField
+                    inputRef={textRef}
                     id="outlined-basic"
                     label="Outlined"
                     variant="outlined"
                     fullWidth={true}
                 />
 
-                <Button variant="contained">제출</Button>
+                <Button variant="contained" onClick={onSubmit}>
+                    제출
+                </Button>
             </BtnWrapper>
         </Wrapper>
     );
@@ -23,15 +38,15 @@ const BeforeSet = () => {
 export default BeforeSet;
 
 const Wrapper = styled.div`
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
 `;
 
 const BtnWrapper = styled.div`
-    width: 40%;
+    width: 500px;
     display: flex;
     gap: 12px;
 `;

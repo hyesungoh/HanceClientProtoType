@@ -3,14 +3,13 @@ import { useState } from "react";
 import BeforeSet from "Components/MyOwn/BeforeSet";
 
 const MyOwn = () => {
-    const [isSet, setIsSet] = useState<boolean>(true);
+    const [isSet, setIsSet] = useState<boolean>(false);
     const [videoUrl, setVideoUrl] = useState<string>("");
 
-    return (
-        <Wrapper>
-            <BeforeSet />
-        </Wrapper>
-    );
+    if (!isSet)
+        return <BeforeSet setIsSet={setIsSet} setVideoUrl={setVideoUrl} />;
+
+    return <Wrapper></Wrapper>;
 };
 
 export default MyOwn;
