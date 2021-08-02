@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-import { Button } from "@material-ui/core";
+import { Button, TextField } from "@material-ui/core";
 import styled from "styled-components";
 
 const Home = () => {
@@ -22,6 +22,9 @@ const Home = () => {
                 </Link>
                 <Link to="/analysis">
                     <Button variant="contained">분석</Button>
+                </Link>
+                <Link to="/">
+                    <Button variant="contained">나만의 분석</Button>
                 </Link>
             </BtnWrapper>
         </Wrapper>

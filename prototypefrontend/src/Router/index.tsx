@@ -1,7 +1,9 @@
 import { BrowserRouter, Route } from "react-router-dom";
-import WebcamWithPosenet from "Page/Learning";
+
 import Home from "Page/Home";
+import MyOwn from "Page/Bring";
 import Analysis from "Page/Analysis";
+import WebcamWithPosenet from "Page/Learning";
 
 const Router = () => {
     return (
@@ -9,6 +11,7 @@ const Router = () => {
             <Route exact path="/" component={Home} />
             <Route path="/learning" component={WebcamWithPosenet} />
             <Route path="/analysis" component={Analysis} />
+            <Route path="/myown" component={MyOwn} />
         </BrowserRouter>
     );
 };

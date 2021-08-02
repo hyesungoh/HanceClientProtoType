@@ -44,6 +44,7 @@ const Analysis = () => {
                         playing={playing}
                         progressInterval={200}
                         volume={0}
+                        controls={true}
                         onProgress={onProgress}
                         config={{
                             youtube: {
@@ -67,7 +68,6 @@ const Analysis = () => {
                         progressInterval={200}
                         volume={0}
                         className="before"
-                        
                     />
                 </VideoWrapper>
             </VideoSection>
