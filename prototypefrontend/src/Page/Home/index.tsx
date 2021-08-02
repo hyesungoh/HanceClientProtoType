@@ -23,7 +23,7 @@ const Home = () => {
                 <Link to="/analysis">
                     <Button variant="contained">분석</Button>
                 </Link>
-                <Link to="/">
+                <Link to="/myown">
                     <Button variant="contained">나만의 분석</Button>
                 </Link>
             </BtnWrapper>
