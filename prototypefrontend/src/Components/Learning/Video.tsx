@@ -2,28 +2,17 @@ import { Dispatch, SetStateAction } from "react";
 import ReactPlayer from "react-player";
 import styled, { CSSProperties } from "styled-components";
 
-import danceVideoSrc from "Static/Video/10.mp4";
 import weride2VideoSrc from "Static/Video/weride2.mp4";
 import { useRef } from "react";
-import { useEffect } from "react";
 import { useSetRecoilState } from "recoil";
 import { videoCurrentTimeState } from "Store";
 
 interface IVideo {
-    isPlaying: boolean;
-    setIsPlaying: Dispatch<SetStateAction<boolean>>;
     playbackRate: number;
-    setPlaybackRate: Dispatch<SetStateAction<number>>;
     isStartCompare: boolean;
 }
 
-const Video = ({
-    isPlaying,
-    setIsPlaying,
-    playbackRate,
-    setPlaybackRate,
-    isStartCompare,
-}: IVideo) => {
+const Video = ({ playbackRate, isStartCompare }: IVideo) => {
     const WebcamStyle: CSSProperties = {
         position: "absolute",
         top: "0",

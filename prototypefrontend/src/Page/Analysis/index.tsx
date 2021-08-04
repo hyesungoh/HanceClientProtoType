@@ -44,7 +44,7 @@ const Analysis = () => {
                         playing={playing}
                         progressInterval={200}
                         volume={0}
-                        controls={true}
+                        controls={false}
                         onProgress={onProgress}
                         config={{
                             youtube: {
@@ -131,10 +131,10 @@ const VideoWrapper = styled.div<{ following?: boolean }>`
     & > .before {
         transition: transform 0.5s, opacity 0.5s;
 
-        opacity: ${({ following }) => (following ? 0.6 : 1)};
+        opacity: ${({ following }) => (following ? 0.3 : 1)};
         transform: ${({ following }) =>
-            following ? "scale(0.5)" : "scale(1)"};
-        transform-origin: left bottom;
+            following ? "scale(0.4)" : "scale(1)"};
+        transform-origin: right top;
     }
     & > * {
         position: absolute;
