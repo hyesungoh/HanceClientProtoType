@@ -37,7 +37,7 @@ npm start
 
 ## Developer
 
-got together in the software maestro 12th
+This project was supported by Software Maestro
 
 <div align="left">
 
