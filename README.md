@@ -15,6 +15,8 @@ Wavy Client Prototype </h1>
 
 ## Introduction
 
+<div align="left">
+
 <img src="https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=React&logoColor=black"/>
 
 <img src="https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=TypeScript&logoColor=white"/>
@@ -24,6 +26,8 @@ Wavy Client Prototype </h1>
 <img src="https://img.shields.io/badge/MaterialUI-0081CB?style=flat-square&logo=Material-UI&logoColor=white"/>
 
 <img src="https://img.shields.io/badge/StyledComponents-DB7093?style=flat-square&logo=styled-components&logoColor=white"/>
+
+</div>
 
 댄스 코칭 서비스 개발을 위해 `실시간 분석`, `분석 결과 보기`, `원하는 영상 배우기` 기능을 Prototyping 하였습니다.
 
@@ -35,11 +39,11 @@ Wavy Client Prototype </h1>
 
 </div>
 
--   **실시간 분석**
+#### 실시간 분석
 
-    -   `Tensorflow.js`와 `posenet`을 이용하여 사용자 웹캠의 모션 정보를 실시간으로 추출한 후, 웹캠 위에 스켈레톤을 그려줍니다.
-    -   실시간으로 추출한 데이터를 이용하여 미리 추출된 `학습용 영상`의 데이터와 유사도 비교 알고리즘을 수행한 후, 그에 대한 정보를 `텍스트`와 `게이지바`를 이용하여 보여줍니다.
-    -   posenet의 Architecture, Output Stride, 감지되는 시간, input 해상도와 스켈레톤 설정 값, 동영상 재생 시간을 조절할 수 있도록 개발하여 프로토타이핑에 최적화하였습니다.
+-   `Tensorflow.js`와 `posenet`을 이용하여 사용자 웹캠의 모션 정보를 실시간으로 추출한 후, 웹캠 위에 스켈레톤을 그려줍니다.
+-   실시간으로 추출한 데이터를 이용하여 미리 추출된 `학습용 영상`의 데이터와 유사도 비교 알고리즘을 수행한 후, 그에 대한 정보를 `텍스트`와 `게이지바`를 이용하여 보여줍니다.
+-   posenet의 Architecture, Output Stride, 감지되는 시간, input 해상도와 스켈레톤 설정 값, 동영상 재생 시간을 조절할 수 있도록 개발하여 프로토타이핑에 최적화하였습니다.
 
 <div align="center">
 
@@ -47,11 +51,11 @@ Wavy Client Prototype </h1>
 
 </div>
 
--   **분석 결과 보기**
+#### 분석 결과 보기
 
-    -   `Youtube 임베드` 영상과 `사용자가 전에 췄던 영상`을 하나의 컨트롤러로 시간대 이동, 시작/중지 할 수 있습니다.
-    -   따라하기 버튼을 클릭 시 사용자가 전에 췄던 영상의 크기와 투명도를 조절한 후, 사용자 웹캠을 보여줍니다.
-    -   컨트롤러를 이동할 때만 보여지는 유투브 영상을 이용해 컨트롤러에서 이동한 시간대의 화면을 미리 볼 수 있도록 하였습니다.
+-   `Youtube 임베드` 영상과 `사용자가 전에 췄던 영상`을 하나의 컨트롤러로 시간대 이동, 시작/중지 할 수 있습니다.
+-   따라하기 버튼을 클릭 시 사용자가 전에 췄던 영상의 크기와 투명도를 조절한 후, 사용자 웹캠을 보여줍니다.
+-   컨트롤러를 이동할 때만 보여지는 유투브 영상을 이용해 컨트롤러에서 이동한 시간대의 화면을 미리 볼 수 있도록 하였습니다.
 
 <div align="center">
 
@@ -59,9 +63,9 @@ Wavy Client Prototype </h1>
 
 </div>
 
--   **원하는 영상 배우기**
+#### 원하는 영상 배우기
 
-    -   Youtube 영상의 url을 입력한 후, 해당 영상과 사용자 웹캠을 같이 보여줍니다.
+-   Youtube 영상의 url을 입력한 후, 해당 영상과 사용자 웹캠을 같이 보여줍니다.
 
 ## Packages
 
