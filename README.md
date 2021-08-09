@@ -8,6 +8,8 @@ Wavy Client Prototype </h1>
 </div>
 
 <div align="center">
+  <a href="#introduction">Introduction</a> •
+  <a href="#features">Features</a> •
   <a href="#packages">Packages</a> •
   <a href="#getting-started">Getting Started</a> •
   <a href="#developer">Developer</a>
@@ -40,10 +42,6 @@ Wavy Client Prototype </h1>
 </div>
 
 #### 실시간 분석
-
-|                                                                                                                                              |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
-| -------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| <img width="700" alt="realtime" src="https://user-images.githubusercontent.com/26461307/128743077-d18d7f84-8699-478e-ab39-4bf5568952a5.png"> | - `Tensorflow.js`와 `posenet`을 이용하여 사용자 웹캠의 모션 정보를 실시간으로 추출한 후, 웹캠 위에 스켈레톤을 그려줍니다. <br/> - 실시간으로 추출한 데이터를 이용하여 미리 추출된 `학습용 영상`의 데이터와 유사도 비교 알고리즘을 수행한 후, 그에 대한 정보를 `텍스트`와 `게이지바`를 이용하여 보여줍니다. <br/> - posenet의 Architecture, Output Stride, 감지되는 시간, input 해상도와 스켈레톤 설정 값, 동영상 재생 시간을 조절할 수 있도록 개발하여 프로토타이핑에 최적화하였습니다. |
 
 -   `Tensorflow.js`와 `posenet`을 이용하여 사용자 웹캠의 모션 정보를 실시간으로 추출한 후, 웹캠 위에 스켈레톤을 그려줍니다.
 -   실시간으로 추출한 데이터를 이용하여 미리 추출된 `학습용 영상`의 데이터와 유사도 비교 알고리즘을 수행한 후, 그에 대한 정보를 `텍스트`와 `게이지바`를 이용하여 보여줍니다.
@@ -101,14 +99,6 @@ npm start
 
 This project was supported by Software Maestro
 
-<div align="left">
-
- <img src="https://avatars.githubusercontent.com/u/20268101?v=4" width="70px" style="border-radius:50%" />
-
- <img src="https://avatars.githubusercontent.com/u/26461307?v=4" width="70px" style="border-radius:50%" />
-
- <img src="https://avatars.githubusercontent.com/u/61102178?v=4" width="70px" style="border-radius:50%" />
-
-</div>
-
-AI : [haeseoklee](https://github.com/haeseoklee) • FE [hyesungoh](https://github.com/hyesungoh) • BE [Yeonwu](https://github.com/Yeonwu)
+|                              AI: [haeseoklee](https://github.com/haeseoklee)                              |                               FE: [hyesungoh](https://github.com/hyesungoh)                               |                                  BE: [Yeonwu](https://github.com/Yeonwu)                                  |
+| :-------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------: |
+| <img src="https://avatars.githubusercontent.com/u/20268101?v=4" width="70px" style="border-radius:50%" /> | <img src="https://avatars.githubusercontent.com/u/26461307?v=4" width="70px" style="border-radius:50%" /> | <img src="https://avatars.githubusercontent.com/u/61102178?v=4" width="70px" style="border-radius:50%" /> |
