@@ -22,6 +22,7 @@ const MyOwn = () => {
     // test video url
     // https://www.youtube.com/watch?v=-cF7qRKjsXE
 
+    // Youtube URL을 입력하지 않았을 때
     if (!isSet)
         return <BeforeSet setIsSet={setIsSet} setVideoUrl={setVideoUrl} />;
 
