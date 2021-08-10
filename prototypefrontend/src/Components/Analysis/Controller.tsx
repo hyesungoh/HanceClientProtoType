@@ -41,6 +41,7 @@ const Controllers = ({
         isPlaying: true,
     });
 
+    // 컨트롤러 드래그 시
     const onChange = (
         e: React.ChangeEvent<SliderProps>,
         value: number | number[]
@@ -55,6 +56,7 @@ const Controllers = ({
         ThumbnailVideoRef.current?.seekTo(value as number);
     };
 
+    // 시점 이동 시
     const onChangeCommitted = (
         _: React.ChangeEvent<SliderProps>,
         value: number | number[]

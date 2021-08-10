@@ -60,6 +60,7 @@ const WebcamWithPosenet = () => {
         objectFit: "cover",
     };
 
+    // 스켈레톤 그리기
     const drawResult = ({
         pose,
         videoWidth,
@@ -86,6 +87,7 @@ const WebcamWithPosenet = () => {
         });
     };
 
+    // 사용자 포즈 예측
     const detectWebcamFeed = async (posenetModel: posenet.PoseNet) => {
         if (webcamRef.current && webcamRef.current.video?.readyState === 4) {
             const video = webcamRef.current.video;
