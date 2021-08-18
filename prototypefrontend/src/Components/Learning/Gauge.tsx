@@ -10,16 +10,9 @@ const Gauge = () => {
     const compareIsPassed = useRecoilValue(compareIsPassedState);
 
     useEffect(() => {
-        const calcGauge = () => {
-            if (compareIsPassed) {
-                setGaugeHeight(currentMeanScore);
-                return;
-            }
-
-            setGaugeHeight(currentMeanScore - 60);
-        };
-        calcGauge();
-        
+        setGaugeHeight(
+            compareIsPassed ? currentMeanScore : currentMeanScore - 50
+        );
     }, [compareIsPassed, currentMeanScore]);
 
     return (
