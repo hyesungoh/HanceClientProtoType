@@ -1,16 +1,26 @@
 import { useState } from "react";
 import { useEffect } from "react";
 import { useRecoilValue } from "recoil";
-import { compareCurrentMeanScoreState } from "Store";
+import { compareCurrentMeanScoreState, compareIsPassedState } from "Store";
 import styled from "styled-components";
 
 const Gauge = () => {
     const [gaugeHeight, setGaugeHeight] = useState<number>(0);
     const currentMeanScore = useRecoilValue(compareCurrentMeanScoreState);
+    const compareIsPassed = useRecoilValue(compareIsPassedState);
 
     useEffect(() => {
-        setGaugeHeight((currentMeanScore - 60) * 2.5);
-    }, [currentMeanScore]);
+        const calcGauge = () => {
+            if (compareIsPassed) {
+                setGaugeHeight(currentMeanScore);
+                return;
+            }
+
+            setGaugeHeight(currentMeanScore - 60);
+        };
+        calcGauge();
+        
+    }, [compareIsPassed, currentMeanScore]);
 
     return (
         <Wrapper>

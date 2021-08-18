@@ -33,8 +33,8 @@ const WebcamWithPosenet = () => {
         "ResNet50" | "MobileNetV1"
     >("MobileNetV1");
     const [outputStride, setOutputStride] = useState<32 | 16 | 8>(16);
-    const [keypointConfidence, setKeypointConfidence] = useState<number>(0.5);
-    const [skeletonConfidence, setSkeletonConfidence] = useState<number>(0.5);
+    const [keypointConfidence, setKeypointConfidence] = useState<number>(0.9);
+    const [skeletonConfidence, setSkeletonConfidence] = useState<number>(0.9);
     const [resolution, setResolution] = useState<{
         width: number;
         height: number;
