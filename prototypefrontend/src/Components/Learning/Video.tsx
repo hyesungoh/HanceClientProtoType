@@ -36,7 +36,7 @@ const Video = ({ playbackRate, isStartCompare }: IVideo) => {
                 ref={videoRef}
                 url={weride2VideoSrc}
                 // url={danceVideoSrc}
-                volume={0.5}
+                volume={0.1}
                 style={WebcamStyle}
                 controls={!isStartCompare}
                 playsinline={true}

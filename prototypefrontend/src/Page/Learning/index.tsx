@@ -99,35 +99,35 @@ const WebcamWithPosenet = () => {
 
     // 사용자 포즈 예측
     const detectWebcamFeed = async (posenetModel: posenet.PoseNet) => {
-        // if (webcamRef.current && webcamRef.current.video?.readyState === 4) {
-        //     const video = webcamRef.current.video;
-        //     const videoWidth = webcamRef.current.video?.videoWidth;
-        //     const videoHeight = webcamRef.current.video?.videoHeight;
-        //     webcamRef.current.video.width = videoWidth;
-        //     webcamRef.current.video.height = videoHeight;
+        if (webcamRef.current && webcamRef.current.video?.readyState === 4) {
+            const video = webcamRef.current.video;
+            const videoWidth = webcamRef.current.video?.videoWidth;
+            const videoHeight = webcamRef.current.video?.videoHeight;
+            webcamRef.current.video.width = videoWidth;
+            webcamRef.current.video.height = videoHeight;
 
-        //     const pose = await posenetModel.estimateSinglePose(video);
+            const pose = await posenetModel.estimateSinglePose(video);
 
-        //     stackingPose(pose);
-        //     drawResult({ pose, videoWidth, videoHeight, canvasRef });
-        // }
-
-        if (testVidRef.current) {
-            const videoElem = testVidRef.current.getInternalPlayer();
-            if (videoElem.readyState !== 4) return;
-            
-            const videoWidth = videoElem.videoWidth;
-            const videoHeight = videoElem.videoHeight;
-            videoElem.width = videoWidth;
-            videoElem.height = videoHeight;
-
-            const pose = await posenetModel.estimateSinglePose(
-                videoElem as HTMLVideoElement
-            );
-            
             stackingPose(pose);
             drawResult({ pose, videoWidth, videoHeight, canvasRef });
         }
+
+        // if (testVidRef.current) {
+        //     const videoElem = testVidRef.current.getInternalPlayer();
+        //     if (videoElem.readyState !== 4) return;
+
+        //     const videoWidth = videoElem.videoWidth;
+        //     const videoHeight = videoElem.videoHeight;
+        //     videoElem.width = videoWidth;
+        //     videoElem.height = videoHeight;
+
+        //     const pose = await posenetModel.estimateSinglePose(
+        //         videoElem as HTMLVideoElement
+        //     );
+            
+        //     stackingPose(pose);
+        //     drawResult({ pose, videoWidth, videoHeight, canvasRef });
+        // }
     };
 
     const runPosenet = async () => {
@@ -183,9 +183,9 @@ const WebcamWithPosenet = () => {
             <Gauge />
 
             <WebcamWrapper>
-                {/* <Webcam ref={webcamRef} style={WebcamStyle} /> */}
+                <Webcam ref={webcamRef} style={WebcamStyle} />
 
-                <ReactPlayer
+                {/* <ReactPlayer
                     url={testVidUrl}
                     ref={testVidRef}
                     style={WebcamStyle}
@@ -193,7 +193,7 @@ const WebcamWithPosenet = () => {
                     volume={0.0}
                     width="100%"
                     height="100%"
-                />
+                /> */}
                 <canvas ref={canvasRef} style={WebcamStyle} />
             </WebcamWrapper>
 
