@@ -14,6 +14,9 @@ import { useRecoilState } from "recoil";
 import { isStartCompareState } from "Store";
 import useRecord from "Hooks/useRecord";
 import Gauge from "Components/Learning/Gauge";
+import ReactPlayer from "react-player";
+
+import testVidUrl from "Static/Video/testVid.mp4";
 
 interface IDrawResult {
     pose: posenet.Pose;
@@ -45,6 +48,7 @@ const WebcamWithPosenet = () => {
     const [playbackRate, setPlaybackRate] = useState<number>(1);
 
     const webcamRef = useRef<Webcam>(null);
+    const testVidRef = useRef<ReactPlayer>(null);
     const canvasRef = useRef(null);
 
     // custom hook
@@ -58,6 +62,12 @@ const WebcamWithPosenet = () => {
         width: "100%",
         height: "100%",
         objectFit: "cover",
+    };
+
+    const TestStyle: CSSProperties = {
+        position: "absolute",
+        top: "0",
+        left: "0",
     };
 
     // 스켈레톤 그리기
@@ -89,16 +99,32 @@ const WebcamWithPosenet = () => {
 
     // 사용자 포즈 예측
     const detectWebcamFeed = async (posenetModel: posenet.PoseNet) => {
-        if (webcamRef.current && webcamRef.current.video?.readyState === 4) {
-            const video = webcamRef.current.video;
-            const videoWidth = webcamRef.current.video?.videoWidth;
-            const videoHeight = webcamRef.current.video?.videoHeight;
+        // if (webcamRef.current && webcamRef.current.video?.readyState === 4) {
+        //     const video = webcamRef.current.video;
+        //     const videoWidth = webcamRef.current.video?.videoWidth;
+        //     const videoHeight = webcamRef.current.video?.videoHeight;
+        //     webcamRef.current.video.width = videoWidth;
+        //     webcamRef.current.video.height = videoHeight;
 
-            webcamRef.current.video.width = videoWidth;
-            webcamRef.current.video.height = videoHeight;
+        //     const pose = await posenetModel.estimateSinglePose(video);
 
-            const pose = await posenetModel.estimateSinglePose(video);
+        //     stackingPose(pose);
+        //     drawResult({ pose, videoWidth, videoHeight, canvasRef });
+        // }
 
+        if (testVidRef.current) {
+            const videoElem = testVidRef.current.getInternalPlayer();
+            if (videoElem.readyState !== 4) return;
+            
+            const videoWidth = videoElem.videoWidth;
+            const videoHeight = videoElem.videoHeight;
+            videoElem.width = videoWidth;
+            videoElem.height = videoHeight;
+
+            const pose = await posenetModel.estimateSinglePose(
+                videoElem as HTMLVideoElement
+            );
+            
             stackingPose(pose);
             drawResult({ pose, videoWidth, videoHeight, canvasRef });
         }
@@ -157,7 +183,17 @@ const WebcamWithPosenet = () => {
             <Gauge />
 
             <WebcamWrapper>
-                <Webcam ref={webcamRef} style={WebcamStyle} />
+                {/* <Webcam ref={webcamRef} style={WebcamStyle} /> */}
+
+                <ReactPlayer
+                    url={testVidUrl}
+                    ref={testVidRef}
+                    style={WebcamStyle}
+                    playing={isStartCompare}
+                    volume={0.0}
+                    width="100%"
+                    height="100%"
+                />
                 <canvas ref={canvasRef} style={WebcamStyle} />
             </WebcamWrapper>
 

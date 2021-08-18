@@ -11,7 +11,7 @@ const Gauge = () => {
 
     useEffect(() => {
         setGaugeHeight(
-            compareIsPassed ? currentMeanScore : currentMeanScore - 50
+            compareIsPassed ? 60 + ((currentMeanScore - 90) * 4) : currentMeanScore - 50
         );
     }, [compareIsPassed, currentMeanScore]);
 
