@@ -23,9 +23,9 @@ const Home = () => {
                 <Link to="/analysis">
                     <Button variant="contained">분석 결과</Button>
                 </Link>
-                <Link to="/myown">
+                {/* <Link to="/myown">
                     <Button variant="contained">원하는 영상 배우기</Button>
-                </Link>
+                </Link> */}
             </BtnWrapper>
         </Wrapper>
     );
