@@ -50,7 +50,7 @@ const useCoaching = () => {
             const compareResult = compareFrames(
                 preprocedPose,
                 slicedServerData,
-                95,
+                96,
                 75
             );
 
