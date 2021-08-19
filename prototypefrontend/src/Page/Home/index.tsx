@@ -21,7 +21,7 @@ const Home = () => {
                     <Button variant="contained">실시간 분석</Button>
                 </Link>
                 <Link to="/analysis">
-                    <Button variant="contained">분석 결과</Button>
+                    <Button variant="contained">컨트롤러</Button>
                 </Link>
                 {/* <Link to="/myown">
                     <Button variant="contained">원하는 영상 배우기</Button>
