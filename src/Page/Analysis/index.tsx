@@ -43,7 +43,7 @@ const Analysis = () => {
                         url="https://www.youtube.com/watch?v=SZ0UU3Ud3m0"
                         playing={playing}
                         progressInterval={200}
-                        volume={0}
+                        volume={0.5}
                         controls={false}
                         onProgress={onProgress}
                         config={{
