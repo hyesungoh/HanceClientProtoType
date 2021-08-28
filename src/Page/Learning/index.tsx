@@ -61,6 +61,16 @@ const WebcamWithPosenet = () => {
         objectFit: "cover",
     };
 
+    const CanvasStyle: CSSProperties = {
+        position: "absolute",
+        top: "0",
+        left: "0",
+        width: "100%",
+        height: "100%",
+        objectFit: "cover",
+        transform: "scale(-1,1)"
+    }
+
     // const TestStyle: CSSProperties = {
     //     position: "absolute",
     //     top: "0",
@@ -180,7 +190,7 @@ const WebcamWithPosenet = () => {
             <Gauge />
 
             <WebcamWrapper>
-                <Webcam ref={webcamRef} style={WebcamStyle} />
+                <Webcam ref={webcamRef} style={WebcamStyle} mirrored={true} />
 
                 {/* <ReactPlayer
                     url={testVidUrl}
@@ -191,7 +201,7 @@ const WebcamWithPosenet = () => {
                     width="100%"
                     height="100%"
                 /> */}
-                <canvas ref={canvasRef} style={WebcamStyle} />
+                <canvas ref={canvasRef} style={CanvasStyle} />
             </WebcamWrapper>
 
             <Handler

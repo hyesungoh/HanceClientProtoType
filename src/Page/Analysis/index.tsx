@@ -60,7 +60,7 @@ const Analysis = () => {
                     {/* {following && <Webcam style={WebcamStyle} />}2 */}
                 </VideoWrapper>
                 <VideoWrapper following={following}>
-                    {following && <Webcam style={WebcamStyle} />}
+                    {following && <Webcam style={WebcamStyle} mirrored={true} />}
                     <ReactPlayer
                         ref={userVideoRef}
                         url={weride2VideoSrc}

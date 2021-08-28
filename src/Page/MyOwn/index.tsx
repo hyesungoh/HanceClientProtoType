@@ -33,7 +33,7 @@ const MyOwn = () => {
             </YoutubeWrapper>
 
             <WebcamWrapper>
-                <Webcam ref={webcamRef} style={WebcamStyle} />
+                <Webcam ref={webcamRef} style={WebcamStyle} mirrored={true} />
             </WebcamWrapper>
         </Wrapper>
     );
