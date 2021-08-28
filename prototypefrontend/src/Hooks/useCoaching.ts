@@ -1,11 +1,11 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import * as posenet from "@tensorflow-models/posenet";
 
 import l2noramlization from "Utils/Algorithm/preprocessing";
 import compareFrames from "Utils/Algorithm/comparison";
-import serverData from "Static/Data/serverData";
+// import serverData from "Static/Data/serverData";
 import { data as weride2Data } from "Static/Data/weride2Data";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import {
     compareCurrentMeanScoreState,
     compareIsPassedState,
@@ -19,8 +19,7 @@ interface IComparePose {
 
 const useCoaching = () => {
     // const [isStartCompare, setIsStartCompare] = useState<boolean>(false);
-    const [isStartCompare, setIsStartCompare] =
-        useRecoilState(isStartCompareState);
+    const isStartCompare = useRecoilValue(isStartCompareState);
     const setMeanScore = useSetRecoilState(compareCurrentMeanScoreState);
     const setIsPassed = useSetRecoilState(compareIsPassedState);
 

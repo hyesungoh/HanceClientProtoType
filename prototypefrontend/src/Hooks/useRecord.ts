@@ -1,26 +1,26 @@
-import { useEffect, useRef, RefObject } from "react";
+import { useEffect, RefObject } from "react";
 import Webcam from "react-webcam";
-import { useRecoilValue } from "recoil";
-import { isStartCompareState } from "Store";
+// import { useRecoilValue } from "recoil";
+// import { isStartCompareState } from "Store";
 
 interface IUseRecord {
     webcamRef: RefObject<Webcam>;
 }
 
 const useRecord = ({ webcamRef }: IUseRecord) => {
-    const isStartCompare = useRecoilValue(isStartCompareState);
+    // const isStartCompare = useRecoilValue(isStartCompareState);
 
-    const mediaRecordRef = useRef<any>(null);
+    // const mediaRecordRef = useRef<any>(null);
 
-    const startRecord = () => {
-        if (!isStartCompare) return;
-        if (!webcamRef.current) return;
-        if (webcamRef.current.stream === null) return;
+    // const startRecord = () => {
+    //     if (!isStartCompare) return;
+    //     if (!webcamRef.current) return;
+    //     if (webcamRef.current.stream === null) return;
 
-        mediaRecordRef.current = new MediaRecorder(webcamRef.current.stream, {
-            mimeType: "video/webm",
-        });
-    };
+    //     mediaRecordRef.current = new MediaRecorder(webcamRef.current.stream, {
+    //         mimeType: "video/webm",
+    //     });
+    // };
 
     useEffect(() => {}, []);
 

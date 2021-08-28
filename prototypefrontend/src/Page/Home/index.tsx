@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-import { Button, TextField } from "@material-ui/core";
+import { Button } from "@material-ui/core";
 import styled from "styled-components";
 
 const Home = () => {
@@ -23,9 +23,9 @@ const Home = () => {
                 <Link to="/analysis">
                     <Button variant="contained">컨트롤러</Button>
                 </Link>
-                {/* <Link to="/myown">
+                <Link to="/myown">
                     <Button variant="contained">원하는 영상 배우기</Button>
-                </Link> */}
+                </Link>
             </BtnWrapper>
         </Wrapper>
     );

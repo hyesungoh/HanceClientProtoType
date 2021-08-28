@@ -30,7 +30,7 @@ const calculateDot = (
     array2: number[],
     ndarray: number
 ): number => {
-    if (ndarray == 1) {
+    if (ndarray === 1) {
         let answer = 0;
         const len = Math.min(array1.length, array2.length);
         for (let i = 0; i < len; i++) {

@@ -10,13 +10,12 @@ import { drawKeypoints, drawSkeleton } from "Utils/draw";
 import Handler from "Components/Learning/Handler";
 import Video from "Components/Learning/Video";
 import Score from "Components/Learning/Score";
-import { useRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import { isStartCompareState } from "Store";
-import useRecord from "Hooks/useRecord";
-import Gauge from "Components/Learning/Gauge";
-import ReactPlayer from "react-player";
 
-import testVidUrl from "Static/Video/testVid.mp4";
+import Gauge from "Components/Learning/Gauge";
+
+// import testVidUrl from "Static/Video/testVid.mp4";
 
 interface IDrawResult {
     pose: posenet.Pose;
@@ -26,8 +25,7 @@ interface IDrawResult {
 }
 
 const WebcamWithPosenet = () => {
-    const [isStartCompare, setIsStartCompare] =
-        useRecoilState(isStartCompareState);
+    const isStartCompare = useRecoilValue(isStartCompareState);
     const [isLoading, setIsLoading] = useState<boolean>(true);
 
     // for posenet model
@@ -48,12 +46,11 @@ const WebcamWithPosenet = () => {
     const [playbackRate, setPlaybackRate] = useState<number>(1);
 
     const webcamRef = useRef<Webcam>(null);
-    const testVidRef = useRef<ReactPlayer>(null);
+    // const testVidRef = useRef<ReactPlayer>(null);
     const canvasRef = useRef(null);
 
     // custom hook
     const { stackingPose } = useCoaching();
-    const {} = useRecord({ webcamRef: webcamRef });
 
     const WebcamStyle: CSSProperties = {
         position: "absolute",
@@ -64,11 +61,11 @@ const WebcamWithPosenet = () => {
         objectFit: "cover",
     };
 
-    const TestStyle: CSSProperties = {
-        position: "absolute",
-        top: "0",
-        left: "0",
-    };
+    // const TestStyle: CSSProperties = {
+    //     position: "absolute",
+    //     top: "0",
+    //     left: "0",
+    // };
 
     // 스켈레톤 그리기
     const drawResult = ({
@@ -124,7 +121,7 @@ const WebcamWithPosenet = () => {
         //     const pose = await posenetModel.estimateSinglePose(
         //         videoElem as HTMLVideoElement
         //     );
-            
+
         //     stackingPose(pose);
         //     drawResult({ pose, videoWidth, videoHeight, canvasRef });
         // }
